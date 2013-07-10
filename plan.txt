@@ -1,0 +1,54 @@
+From the application:
+
+4. Finitely Presented Groups (Max Neunhoeffer, University of St Andrews)
+
+This lecture course will start to discuss the word problem for finitely
+presented groups, discussing the impossibility of solving it with
+an algorithm. It then covers the following fundamental algorithms:
+Todd/Coxeter, Low Index, Abelian Invariants and Reidemeister-Schreier.
+A brief excursion into Small Cancellation Theory will then motivate
+rewrite systems, present Dehn’s Algorithm and lead to the Knuth-Bendix
+procedure. Time permitting, the course will cover automatic groups.
+
+
+
+Lecture 1:
+Introduction to FP groups (universal property)
+The fundamental problems one would like to solve
+Insolvability of the word problem
+Changing presentation: Tietze Transformations
+  -> GAP example
+Abelianisation and abelian invariants
+  -> GAP example
+
+Lecture 2:
+equivalence of finite index subgroups and finite perm reps
+Coset enumeration:
+  idea (fix the subgroup, determine index)
+  an example very slowly
+  theorem about successful outcome
+  different strategies
+  theorem about completion
+  real world example in GAP
+Low index
+  idea (fix an upper bound for the index, determine subgroups)
+  an example very slowly
+  theorem about successful outcome
+  conjugacy of subgroups
+  real world example in GAP
+
+Lecture 3:
+Presentations of subgroups (Reidemeister-Schreier)
+  -> GAP example
+Proving FP groups to be infinite
+  -> GAP example
+Rewrite systems: termination, confluence
+Knuth-Bendix procedure
+  -> GAP example
+
+Lecture 4:
+Hyperbolic groups
+Small Cancellation conditions: Dehn's algorithm
+  -> GAP example
+Automatic Groups: Definition
+  -> KBMAG example
