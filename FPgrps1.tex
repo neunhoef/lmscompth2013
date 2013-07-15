@@ -164,34 +164,38 @@ group $\{1\}$}.
 \end{frame}
         
 \begin{frame}
-$X$: finite system of \Struc{generators}
-with involution $X \to X, x \mapsto x^{-1}$
+$X$: finite set of \Struc{generators}, $\hat X := X
+\stackrel{.}{\cup} X^{-1}$ with
+involution $x \mapsto x^{-1}$
 
 \smallskip
 \pause
-$X^*$: set of \Alert{finite words} in $X$, concatenation as product
+$\hat X^*$: set of \Alert{finite words} in $\hat X$, 
+concatenation as product
 
 \smallskip
 \pause
-$R \subseteq X^*$: finite set of \Struc{relations}
+$R \subseteq \hat X^*$: finite set of \Struc{relations}
 
 \medskip
 \pause
-\Struc{Define} $\sim$ as  \Alert{finest equivalence relation} on $X^*$ with
+\Struc{Define} $\sim$ as  \Alert{finest equivalence relation} on $\hat X^*$ 
+with
 \begin{itemize}
-\item $uv \sim uxx^{-1}v$ for all $u,v \in X^*$ and all $x \in X$, and
-\item $uv \sim urv$ for all $u,v \in X^*$ and all $r \in R$.
+\item $uv \sim uxx^{-1}v$ for all $u,v \in \hat X^*$ and all $x \in
+\hat X$, and
+\item $uv \sim urv$ for all $u,v \in \hat X^*$ and all $r \in R$.
 \end{itemize}
 
 \pause
 \begin{defprop}[Finitely presented group]
-The set $G := X^*/\sim$ of equivalence classes is a group with
+The set $G := \hat X^*/\sim$ of equivalence classes is a group with
 concatenation as product. 
 It is called \Struc{the finitely presented group with
 generators $X$ and relations $R$} and is denoted by
 \Alert{$G := \left< X \mid R\right>$}.
 \pause
-$\mybaremp:X^* \to G, w \mapsto \mybar{w}$ is the natural map from $w$
+$\mybaremp:\hat X^* \to G, w \mapsto \mybar{w}$ is the natural map from $w$
 to its equivalence class.
 \end{defprop}
 
@@ -209,9 +213,10 @@ to its equivalence class.
 \begin{theorem}[Universal property (Dyck, 1882)] 
 Let $G := \left< X \mid R \right>$ be a finitely presented group.
 
-If $H$ is any group and $f : X \to H$ \Struc{any map} such that for all $r =
-x_1 x_2 \cdots x_k \in R$ we have
+Let $H$ be any group, $f : X \to H$ \Struc{any map} and set $f(x^{-1}) :=
+f(x)^{-1}$ for $x \in X$. If 
 \[ f(x_1) \cdot f(x_2) \cdot \cdots \cdot f(x_k) = 1 \in H \]
+for all $r = x_1 x_2 \cdots x_k \in R$,
 then there is a \Struc{unique group homomorphism} $\tilde f : G \to H$
 with $\tilde f(\mybar x) = f(x)$ for all $x \in X$.
 
@@ -220,6 +225,7 @@ In other words: \Struc{any map $f : X \to H$} can be \Alert{extended
 to a group homomorphism $\tilde f: G \to H$ in a unique way}.
 \end{theorem}
 
+\pause
 \Struc{This means:} $G$ has all groups as a \Struc{quotient} that
 have a generating system $X$ which \Alert{fulfills the relations} $R$.
 
@@ -241,23 +247,24 @@ In a seminal paper, Max Dehn formulated three \Struc{fundamental
 problems}:
 
 \begin{problem}[Word problem (Dehn 1911)]
-For $G := \left< X \mid R \right>$ and a \Struc{word $w \in X^*$},
+For $G := \left< X \mid R \right>$ and a \Struc{word $w \in \hat X^*$},
 \Alert{decide in finitely many steps} whether or not $\mybar w = 1 \in
 G$.
 \end{problem}
 
 \pause
 \begin{problem}[Conjugacy problem (Dehn 1911)]
-For $G := \left< X \mid R \right>$ and two \Struc{words $v,w \in X^*$},
+For $G := \left< X \mid R \right>$ and two \Struc{words $v,w \in \hat X^*$},
 \Alert{decide in finitely many steps} whether or not there is a word
-$u \in X^*$ such that $\mybar w = \mybar{u v u^{-1}} \in G$.
+$u \in \hat X^*$ such that $\mybar w = \mybar{u v u^{-1}} \in G$.
 \end{problem}
 
 \pause
 \begin{problem}[Isomorphism problem (Dehn 1911)]
 For $G := \left< X \mid R \right>$ and $H := \left< Y \mid S \right>$,
 \Alert{decide in finitely many steps} whether or not $G \cong H$,
-\pause or even: for a map $f : X \to Y^*$, \Alert{decide in finitely
+\pause \Struc{or even}: for a map $f : X \to \hat Y^*$, 
+\Alert{decide in finitely
 many steps} whether or not $f$ induces an isomorphism $\tilde f : G \to H$.
 \end{problem}
 
@@ -268,26 +275,24 @@ $\ldots$
 
 \end{frame}
 
-\subsection{The word problem is insolvable}
-
 \begin{frame}
 \begin{problem}[Word problem (Dehn 1911)]
-For $G := \left< X \mid R \right>$ and a \Struc{word $w \in X^*$},
+For $G := \left< X \mid R \right>$ and a \Struc{word $w \in \hat X^*$},
 \Alert{decide in finitely many steps} whether or not $\mybar w = 1 \in
 G$.
 \end{problem}
 
 \pause
 \begin{lemma}
-Let $G=\left< X \mid R\right>$, then $\mybar{w}=1$ for a $w \in X^*$
-iff
+Let $G=\left< X \mid R\right>$, then $\mybar{w}=1$ for a $w \in \hat X^*$
+if and only if
 
 \vspace*{-3.5mm}
 \[ w \sim \prod_{i=1}^k w_i^{-1} r_i w_i \qquad 
 \Alert{\mbox{in } F=\left<X \mid \right>} \]
 
 \vspace*{-1.5mm}
-for a $k \in \N$ and some $w_i \in X^*$ and $r_i \in R$. 
+for a $k \in \N$ and some $w_i \in \hat X^*$ and $r_i \in R$. 
 
 \pause
 \smallskip
@@ -296,11 +301,13 @@ For $w$ with $\mybar w=1$ let $A(w)$ be the \Struc{minimal such $k$}.
 
 \pause
 \begin{definition}[Dehn function]
-\[ \delta(\ell) := \max\{ A(w) \mid w \in X^* \mbox{ of length } \ell 
+\[ \delta(\ell) := \max\{ A(w) \mid w \in \hat X^* \mbox{ of length } \ell 
 \mbox{ and } \mybar w = 1\} \]
 \end{definition}
 
 \end{frame}
+
+\subsection{The word problem is insolvable}
 
 \begin{frame}
 \begin{theorem}[Novikov 1955, Boone 1958]
@@ -314,7 +321,7 @@ that \Struc{there is no algorithm} to solve the word problem.
 \begin{theorem}[Shapiro]
 The word problem for
 $G=\left< X \mid R \right>$ is \Struc{algorithmically solvable}
-iff the Dehn function $\delta$ is \Alert{recursively computable}.
+if and only if the Dehn function $\delta$ is \Alert{recursively computable}.
 \end{theorem}
 
 \bigskip
@@ -333,6 +340,8 @@ Even the question if $\left< X \mid R \right> = \{ 1 \}$ is
 in general \Alert{unsolvable}.
 \end{frame}
 
+% GAP session here to type in some FP groups and ask some questions,
+% show that something works OK, other things do not seem to work.
 
 \section{Changing the presentation}
 

@@ -1,0 +1,12 @@
+Print("Example 1\n\n");
+F := FreeGroup("s","t");
+AssignGeneratorVariables(F);
+rels := [s^3,t^2];
+G := F/rels;
+D := DerivedSubgroup(G);
+A := G/D;
+IsAbelian(A);
+Size(A);
+IdGroup(A);
+AbelianInvariants(G);
+AbelianInvariants(D);
