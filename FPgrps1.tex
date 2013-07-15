@@ -1,0 +1,365 @@
+%\documentclass[handout]{beamer}
+\documentclass{beamer}
+
+\mode<presentation>
+{
+  %\usetheme{Warsaw}
+  %\usetheme{Antibes}
+  %\usetheme{Berkeley}
+  %\usetheme{Copenhagen}
+  %\usetheme{Hannover}
+  %\usetheme{JuanLesPins}
+  %\usetheme[left]{Marburg}
+  %\usetheme{PaloAlto}
+  %\usetheme{sidebar}
+  \usetheme{CambridgeUS}
+  %\useinnertheme[shadow=true]{rounded}
+  %\usetheme{Singapore}
+  %\usecolortheme{crane}
+  %\usecolortheme{lily}
+  %\usecolortheme{beetle}
+  \usecolortheme{orchid}
+  % oder ...
+  %\setbeamercovered{transparent}
+  % oder auch nicht
+  %\setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+  \setbeamertemplate{navigation symbols}{}
+  %\setbeamertemplate{blocks}[rounded][shadow=true]
+  %\setbeamercolor{block body}{bg=bg=normal text.bg!70!black}
+  %\setbeamercolor{subsection in sidebar}{fg=white}
+}
+
+
+\usepackage[british]{babel}
+% oder was auch immer
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[noend]{algorithmic}
+%\usepackage{algorithm}
+
+\theoremstyle{definition}
+%\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{defprop}[theorem]{Definition/Proposition}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{construction}[theorem]{Construction}
+\newtheorem{principle}[theorem]{Principle}
+\newtheorem{idea}[theorem]{Idea}
+%\newtheorem{problem}[theorem]{Problem}
+\usepackage[latin1]{inputenc}
+% oder was auch immer
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+% Oder was auch immer. Zu beachten ist, das Font und Encoding passen
+% müssen. Falls T1 nicht funktioniert, kann man versuchen, die Zeile
+% mit fontenc zu löschen.
+
+%\usepackage[mtbold,subscriptcorrection,mtpluscal]{mathtime}
+
+%\usepackage{graphicx}
+%\usepackage{rotating}
+
+\newcommand{\Struc}[1]{{\color{structure}#1}}
+\newcommand{\Alert}[1]{{\color{alert}#1}}
+
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Oh}{\mathcal{O}}
+\newcommand{\Aut}{\mathsf{Aut}}
+\newcommand{\ob}{\mathsf{Ob}}
+\newcommand{\mor}{\mathsf{Mor}}
+\newcommand{\PSL}{\mathsf{PSL}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand\cyclic\circlearrowleft
+
+\newcommand{\mybar}[1]{\overline{\raisebox{1.2ex}{}#1}}
+\newcommand{\mybaremp}{\mybar{\ \ }}
+
+\usepackage{calc}
+
+\newsavebox{\linksrausbox}
+\newlength{\linksrauslen}
+\newcommand{\linksraus}[1]{\sbox{\linksrausbox}{#1}%
+\settowidth{\linksrauslen}{\usebox{\linksrausbox}\ }%
+\usebox{\linksrausbox} \begin{minipage}[t]{\textwidth-\linksrauslen}}
+\newcommand{\linksrausend}{\end{minipage}\par}%\smallskip}
+
+\usepackage{pgf,pgfarrows,pgfnodes}
+
+%\pgfdeclareimage[width=1mm]{checkmark}{checkmark}
+%\newcommand{\eofr}[1]{\vfill\vspace*{-#1mm}\hfill\pgfuseimage{checkmark}
+%\par\vspace*{#1mm}\vspace*{-4mm}}
+
+\newcommand{\GAP}{\textsf{GAP}}
+
+\pgfdeclareimage[width=0.5in]{univstandlogo}{univstandlogo}
+%\title[Computing the 2-modular characters of Fi$_{23}$] 
+%          % (optional, nur bei langen Titeln nötig)
+%          {Computing the 2-modular characters of Fi$_{23}$}
+\title[Finitely presented groups 1]
+{Finitely presented groups 1}
+
+\author% (optional, nur bei vielen Autoren)
+{Max Neunhöffer}
+
+\institute[University of St Andrews] % (optional, aber oft nötig)
+{ 
+\pgfuseimage{univstandlogo} \\[5mm]
+%University of St Andrews  \\[2mm]
+}
+
+\date[29 July 2013] % (optional, sollte der abgekürzte Konferenzname sein)
+{LMS Short Course on Computational Group Theory \\ 29 July -- 2 August 2013}
+
+\begin{document}
+%\newcmykcolor{MyRedViolet}{0.07 0.90 0 0.34}
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Finitely presented groups}
+
+\subsection{Introduction and definition}
+
+\begin{frame}
+$\left< C \mid C^k=1 \right>$ \pause is the \Struc{cyclic group} of
+order $k$.
+
+\pause
+\bigskip
+$\left< A, B \mid ABA^{-1}B^{-1} \right>$ \pause is the
+\Struc{integral lattice $\Z^2$} with addition.
+
+\pause
+\begin{block}{``Definition''}
+$G := \left< X \mid R_1, R_2, \ldots, R_k\right>$ is the
+``\Alert{largest}'' 
+group that has $X$ as \Struc{generating system}, such that
+the \Struc{relations} $R_1, \ldots, R_k$ hold.
+
+\pause
+\smallskip
+\Alert{Every} group with a generating system $X$, for which the relations $R_1,
+\ldots, R_k$ hold, is a \Struc{quotient of $G$.}
+\end{block}
+
+\pause
+\bigskip
+$\left< P, Q \mid P^n, Q^2, PQPQ \right>$ \pause is the
+\Struc{dihedral group} of order $2n$.
+
+\pause
+\bigskip
+$\left< S, T \mid S^3, T^2 \right>$ is the \Struc{modular group
+$\PSL(2,\Z)$}.
+
+\pause
+\bigskip
+$\left< D, E, F \mid DEFED, EFD, D^2EF\right>$ is the \Struc{trivial
+group $\{1\}$}.
+\end{frame}
+        
+\begin{frame}
+$X$: finite system of \Struc{generators}
+with involution $X \to X, x \mapsto x^{-1}$
+
+\smallskip
+\pause
+$X^*$: set of \Alert{finite words} in $X$, concatenation as product
+
+\smallskip
+\pause
+$R \subseteq X^*$: finite set of \Struc{relations}
+
+\medskip
+\pause
+\Struc{Define} $\sim$ as  \Alert{finest equivalence relation} on $X^*$ with
+\begin{itemize}
+\item $uv \sim uxx^{-1}v$ for all $u,v \in X^*$ and all $x \in X$, and
+\item $uv \sim urv$ for all $u,v \in X^*$ and all $r \in R$.
+\end{itemize}
+
+\pause
+\begin{defprop}[Finitely presented group]
+The set $G := X^*/\sim$ of equivalence classes is a group with
+concatenation as product. 
+It is called \Struc{the finitely presented group with
+generators $X$ and relations $R$} and is denoted by
+\Alert{$G := \left< X \mid R\right>$}.
+\pause
+$\mybaremp:X^* \to G, w \mapsto \mybar{w}$ is the natural map from $w$
+to its equivalence class.
+\end{defprop}
+
+\bigskip
+\pause e.g.~in $G=\left< S,T \mid S^6, T^2, STST\right>$:
+\[ \emptyset \sim \Struc{STST}
+   \pause    \sim \Struc{S}STST\Struc{TST}
+   \pause    = SSTS\Alert{TT}ST
+   \pause    \sim SSTSST  = S^2TS^2T\]
+\end{frame}
+
+\subsection{Universal property}
+
+\begin{frame}
+\begin{theorem}[Universal property (Dyck, 1882)] 
+Let $G := \left< X \mid R \right>$ be a finitely presented group.
+
+If $H$ is any group and $f : X \to H$ \Struc{any map} such that for all $r =
+x_1 x_2 \cdots x_k \in R$ we have
+\[ f(x_1) \cdot f(x_2) \cdot \cdots \cdot f(x_k) = 1 \in H \]
+then there is a \Struc{unique group homomorphism} $\tilde f : G \to H$
+with $\tilde f(\mybar x) = f(x)$ for all $x \in X$.
+
+\pause
+In other words: \Struc{any map $f : X \to H$} can be \Alert{extended
+to a group homomorphism $\tilde f: G \to H$ in a unique way}.
+\end{theorem}
+
+\Struc{This means:} $G$ has all groups as a \Struc{quotient} that
+have a generating system $X$ which \Alert{fulfills the relations} $R$.
+
+\medskip
+\pause
+$\left< A, B \mid \right>$ is the \Struc{free group on two
+generators}, it has any 2-generated group as a quotient.
+
+\medskip
+\pause
+$\left< C \mid C^k \right>$ has all cyclic groups of order $o$
+dividing $k$ as quotients.
+\end{frame}
+
+\subsection{Fundamental problems}
+
+\begin{frame}
+In a seminal paper, Max Dehn formulated three \Struc{fundamental
+problems}:
+
+\begin{problem}[Word problem (Dehn 1911)]
+For $G := \left< X \mid R \right>$ and a \Struc{word $w \in X^*$},
+\Alert{decide in finitely many steps} whether or not $\mybar w = 1 \in
+G$.
+\end{problem}
+
+\pause
+\begin{problem}[Conjugacy problem (Dehn 1911)]
+For $G := \left< X \mid R \right>$ and two \Struc{words $v,w \in X^*$},
+\Alert{decide in finitely many steps} whether or not there is a word
+$u \in X^*$ such that $\mybar w = \mybar{u v u^{-1}} \in G$.
+\end{problem}
+
+\pause
+\begin{problem}[Isomorphism problem (Dehn 1911)]
+For $G := \left< X \mid R \right>$ and $H := \left< Y \mid S \right>$,
+\Alert{decide in finitely many steps} whether or not $G \cong H$,
+\pause or even: for a map $f : X \to Y^*$, \Alert{decide in finitely
+many steps} whether or not $f$ induces an isomorphism $\tilde f : G \to H$.
+\end{problem}
+
+\pause
+\smallskip
+We would like to have \Struc{algorithms} for these decision problems
+$\ldots$
+
+\end{frame}
+
+\subsection{The word problem is insolvable}
+
+\begin{frame}
+\begin{problem}[Word problem (Dehn 1911)]
+For $G := \left< X \mid R \right>$ and a \Struc{word $w \in X^*$},
+\Alert{decide in finitely many steps} whether or not $\mybar w = 1 \in
+G$.
+\end{problem}
+
+\pause
+\begin{lemma}
+Let $G=\left< X \mid R\right>$, then $\mybar{w}=1$ for a $w \in X^*$
+iff
+
+\vspace*{-3.5mm}
+\[ w \sim \prod_{i=1}^k w_i^{-1} r_i w_i \qquad 
+\Alert{\mbox{in } F=\left<X \mid \right>} \]
+
+\vspace*{-1.5mm}
+for a $k \in \N$ and some $w_i \in X^*$ and $r_i \in R$. 
+
+\pause
+\smallskip
+For $w$ with $\mybar w=1$ let $A(w)$ be the \Struc{minimal such $k$}.
+\end{lemma}
+
+\pause
+\begin{definition}[Dehn function]
+\[ \delta(\ell) := \max\{ A(w) \mid w \in X^* \mbox{ of length } \ell 
+\mbox{ and } \mybar w = 1\} \]
+\end{definition}
+
+\end{frame}
+
+\begin{frame}
+\begin{theorem}[Novikov 1955, Boone 1958]
+There is a finite presentation
+$G=\left< X \mid R \right>$, for which it is \Alert{proven}
+that \Struc{there is no algorithm} to solve the word problem.
+\end{theorem}
+
+\bigskip
+\pause
+\begin{theorem}[Shapiro]
+The word problem for
+$G=\left< X \mid R \right>$ is \Struc{algorithmically solvable}
+iff the Dehn function $\delta$ is \Alert{recursively computable}.
+\end{theorem}
+
+\bigskip
+\pause
+\begin{center}
+The \Struc{growth rate of $\delta$} is a measure for the
+\Alert{difficulty of the word problem}.
+\end{center}
+
+\bigskip
+\pause
+The \Struc{conjugacy problem} and the \Struc{isomorphism problem} are
+\Alert{unsolvable} in the same way. \pause 
+
+Even the question if $\left< X \mid R \right> = \{ 1 \}$ is
+in general \Alert{unsolvable}.
+\end{frame}
+
+
+\section{Changing the presentation}
+
+\begin{frame}
+empty
+\end{frame}
+
+\subsection{Tietze transformations}
+
+\begin{frame}
+empty
+\end{frame}
+
+\section{Abelian quotients}
+
+\subsection{Theory}
+
+\begin{frame}
+empty
+\end{frame}
+
+\subsection{Practice}
+
+\begin{frame}
+empty
+\end{frame}
+
+\end{document}
+
+
