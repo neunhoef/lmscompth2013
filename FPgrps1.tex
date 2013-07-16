@@ -46,6 +46,7 @@
 \newtheorem{construction}[theorem]{Construction}
 \newtheorem{principle}[theorem]{Principle}
 \newtheorem{idea}[theorem]{Idea}
+\newtheorem{proposition}[theorem]{Proposition}
 %\newtheorem{problem}[theorem]{Problem}
 \usepackage[latin1]{inputenc}
 % oder was auch immer
@@ -60,6 +61,8 @@
 
 %\usepackage{graphicx}
 %\usepackage{rotating}
+
+\usepackage[all]{xy}
 
 \newcommand{\Struc}[1]{{\color{structure}#1}}
 \newcommand{\Alert}[1]{{\color{alert}#1}}
@@ -198,6 +201,11 @@ generators $X$ and relations $R$} and is denoted by
 $\mybaremp:\hat X^* \to G, w \mapsto \mybar{w}$ is the natural map from $w$
 to its equivalence class.
 \end{defprop}
+
+%\bigskip
+%\pause
+%\Struc{Note:} Wlog $R$ \Struc{closed} under 
+%\Alert{rotation} and \Alert{inversion}.
 
 \bigskip
 \pause e.g.~in $G=\left< S,T \mid S^6, T^2, STST\right>$:
@@ -338,21 +346,105 @@ The \Struc{conjugacy problem} and the \Struc{isomorphism problem} are
 
 Even the question if $\left< X \mid R \right> = \{ 1 \}$ is
 in general \Alert{unsolvable}.
-\end{frame}
+%\end{frame}
 
+%\begin{frame}
+\bigskip
+\pause
+Nevertheless, in GAP you can work with finitely presented groups:
+
+\smallskip
+\centerline{\url{http://tinyurl.com/MNGAPsess/GAP\_FP\_1.g}}
 % GAP session here to type in some FP groups and ask some questions,
 % show that something works OK, other things do not seem to work.
 
-\section{Changing the presentation}
-
-\begin{frame}
-empty
 \end{frame}
+
+\section{Changing the presentation}
 
 \subsection{Tietze transformations}
 
 \begin{frame}
-empty
+Let $G := \left< X \mid R \right>$ be a finite presentation.
+
+\smallskip
+\pause
+\Struc{Rotating} or \Struc{inverting} a relator \Alert{does not change
+the group}.
+
+\smallskip
+\pause
+If $vw \in R$ with $v,w \in \hat X^*$, then $\mybar v = \mybar{w^{-1}}
+\in G$.
+
+\pause
+\smallskip
+In other words: $vu \sim vww^{-1}u \sim w^{-1}u$,
+
+\pause
+so we can \Struc{replace $v$ by $w^{-1}$} in any other relator.
+
+\pause
+\smallskip
+In particular, if $v \in \hat X$ and $w$ does not contain the letter
+$v$, we can \Struc{replace} $v$ everywhere by $w^{-1}$. 
+
+\pause
+\smallskip
+We can then \Struc{remove}
+the relator $vw$ and the generators $v,v^{-1}$ from $\hat X$.
+
+\pause
+\smallskip
+Conversely, if a word $w$ shows up frequently in the relators, we can
+\Struc{add generators} $v,v^{-1}$ to $\hat X$ and \Struc{add the relator}
+$v^{-1}w$.
+
+\pause
+\smallskip We can then replace $w$ everywhere by $v$.
+
+\pause
+\medskip
+Furthermore, we can always \Struc{add relators} that follow from
+others and \Struc{remove redundand relators}.
+
+\pause
+\medskip
+All these steps are called ``\Struc{Tietze transformations}'', they
+\Alert{change the presentation, but not the isomorphism type of the
+group}.
+\end{frame}
+
+\begin{frame}
+GAP allows you to \Struc{work with presentations} and do
+Tietze transformations
+
+\begin{itemize}
+\item \Alert{manually},
+\pause
+\item \Alert{fully automatically}, or
+\pause
+\item \Alert{semi-automatically}.
+\end{itemize}
+
+\pause
+The aim is always to \Struc{simplify the presentation}, which usually
+means \Struc{fewer generators} and/or \Struc{shorter relators}.
+
+\bigskip
+\pause
+GAP distinguishes between
+\begin{itemize}
+\item objects representing \Alert{a finitely presented group}, and
+\item objects representing \Alert{a finite presentation of a group}.
+\end{itemize}
+
+\pause
+\bigskip
+\centerline{\url{http://tinyurl.com/MNGAPsess/GAP\_FP\_2.g}}
+% GAP session here to type in some FP groups and ask some questions,
+% show that something works OK, other things do not seem to work.
+
 \end{frame}
 
 \section{Abelian quotients}
@@ -360,13 +452,99 @@ empty
 \subsection{Theory}
 
 \begin{frame}
-empty
+The rest of this talk is about studying $G/G'$ where
+$G = \left< X \mid R \right>$ and $G'$ is the \Struc{derived
+subgroup}.
+
+\bigskip
+\pause
+$G/G'$ is the \Struc{largest abelian quotient} of $G$, we have:
+
+\begin{proposition}
+If $\varphi : G \to A$ is \Alert{any} 
+\Struc{group homomorphism} to an \Alert{abelian} 
+group $A$, then there is a \Struc{unique group homomorphism}
+$\tilde\varphi:G/G' \to A$ with $\varphi = \pi \tilde\varphi$:
+\[ \xymatrix{G \ar[rr]^{\pi} \ar[dr]_{\varphi} &
+\ar@{}[d]|-{\circlearrowleft} & G/G'
+\ar@{-->}[dl]^{\tilde\varphi}\\
+                    & A & }\]
+where $\pi: G \to G/G'$ is the natural map. \pause
+\hspace*{1cm}(Note $G' \subseteq \ker \varphi$)
+\end{proposition}
+\pause
+We immediately get:
+\[ G/G' \cong H := \left< X \mid R, \{ xyx^{-1}y^{-1} \mid x,y \in X
+\}\right> \]
+\end{frame}
+
+\begin{frame}
+However, $H := \left< X \mid R, \{ xyx^{-1}y^{-1} \mid x,y \in
+X\}\right>$
+is \Struc{naturally a quotient} of the \Alert{free abelian group}
+\[ \left< X \mid \{ xyx^{-1}y^{-1} \mid x,y \in X \} \right>
+\cong \Struc{\Z^n} \quad \mbox{(with addition)}, \]
+where $n = |X|$. 
+
+\pause
+\smallskip
+We \Struc{write elements of $\Z^n$} as integer vectors.
+
+\pause
+Since $\Z^n$ is abelian, the \Struc{normal closure} of $R \subseteq
+\Z^n$ is $\left< R \right>$.
+
+\pause
+That is, $H$ as quotient of $\Z^n$ is \Struc{described} by a
+\Alert{matrix}
+\[ M := \left[ \begin{array}{c} r_1 \\ r_2 \\ \vdots \\ r_k \end{array}
+\right] \in \Z^{k \times n} \]
+where $H \cong \Z^n/(\mbox{row space of }M)$.
+
+\pause\smallskip
+If $N := S \cdot M \cdot T$ is the \Struc{Smith normal form} of
+$M$ (with $S,T$ invertible), \pause then $H \cong \Z^n/(\mbox{row space of }N)$ 
+and we can \Struc{read off the structure}.
 \end{frame}
 
 \subsection{Practice}
 
 \begin{frame}
-empty
+More concretely, if for example
+
+\vspace*{-3mm}
+\[ N = \left[ \begin{array}{ccccc} 
+    1   & \cdot & \cdot & \cdot & \cdot\\
+  \cdot &   2   & \cdot & \cdot & \cdot\\
+  \cdot & \cdot &   6   & \cdot & \cdot\\
+  \cdot & \cdot & \cdot &   0   & \cdot
+\end{array} \right] = S \cdot M \cdot T,\]
+then $H \cong \Z/(2\Z) \oplus \Z/(6\Z) \oplus \Z \oplus \Z$.
+
+\pause
+\smallskip
+The matrix $S$ \Struc{recombines the rows of $M$} and the matrix $T$ 
+\Struc{changes the generating set}. Both manipulations can be
+\Struc{traced explicitly}, yielding an \Alert{explicit, computable
+isomorphism}
+\[ G/G' \cong \Z^n/(\mbox{row space of }N). \]
+
+\pause
+The \Struc{diagonal entries} $d_1, d_2, \ldots d_k$ fulfill
+$d_1 \mid d_2 \mid \cdots \mid d_r$ and $d_{r+1} = 0 = d_{r+2} =
+\cdots = d_k$ for some $r$ and
+are called the \Struc{invariant factors} or \Struc{abelian invariants
+of $G$}.
+
+\pause
+\bigskip
+GAP can do all this:
+
+\smallskip
+\centerline{\url{http://tinyurl.com/MNGAPsess/GAP\_FP\_3.g}}
+% GAP session showing Abelian invariants directly
+% also invariants of a subgroup (show presentation acquired
+% automatically), shows infinity
 \end{frame}
 
 \end{document}
