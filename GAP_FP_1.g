@@ -26,6 +26,8 @@ iso := IsomorphismPermGroup(G);
 P := Image(iso);
 DisplayCompositionSeries(P);
 Print("\nExample 4:\n\n");
+
+Print("\nExample 5:\n\n");
 F := FreeGroup("s","t");
 AssignGeneratorVariables(F);
 rels := [s^3,t^2];
