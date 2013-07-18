@@ -1,0 +1,128 @@
+%\documentclass[handout]{beamer}
+\documentclass{beamer}
+
+\mode<presentation>
+{
+  %\usetheme{Warsaw}
+  %\usetheme{Antibes}
+  %\usetheme{Berkeley}
+  %\usetheme{Copenhagen}
+  %\usetheme{Hannover}
+  %\usetheme{JuanLesPins}
+  %\usetheme[left]{Marburg}
+  %\usetheme{PaloAlto}
+  %\usetheme{sidebar}
+  \usetheme{CambridgeUS}
+  %\useinnertheme[shadow=true]{rounded}
+  %\usetheme{Singapore}
+  %\usecolortheme{crane}
+  %\usecolortheme{lily}
+  %\usecolortheme{beetle}
+  \usecolortheme{orchid}
+  % oder ...
+  %\setbeamercovered{transparent}
+  % oder auch nicht
+  %\setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+  \setbeamertemplate{navigation symbols}{}
+  %\setbeamertemplate{blocks}[rounded][shadow=true]
+  %\setbeamercolor{block body}{bg=bg=normal text.bg!70!black}
+  %\setbeamercolor{subsection in sidebar}{fg=white}
+}
+
+
+\usepackage[british]{babel}
+% oder was auch immer
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[noend]{algorithmic}
+%\usepackage{algorithm}
+
+\theoremstyle{definition}
+%\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{defprop}[theorem]{Definition/Proposition}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{construction}[theorem]{Construction}
+\newtheorem{principle}[theorem]{Principle}
+\newtheorem{idea}[theorem]{Idea}
+\newtheorem{proposition}[theorem]{Proposition}
+%\newtheorem{problem}[theorem]{Problem}
+\usepackage[latin1]{inputenc}
+% oder was auch immer
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+% Oder was auch immer. Zu beachten ist, das Font und Encoding passen
+% müssen. Falls T1 nicht funktioniert, kann man versuchen, die Zeile
+% mit fontenc zu löschen.
+
+%\usepackage[mtbold,subscriptcorrection,mtpluscal]{mathtime}
+
+%\usepackage{graphicx}
+%\usepackage{rotating}
+
+\usepackage[all]{xy}
+
+\newcommand{\Struc}[1]{{\color{structure}#1}}
+\newcommand{\Alert}[1]{{\color{alert}#1}}
+
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Oh}{\mathcal{O}}
+\newcommand{\Aut}{\mathsf{Aut}}
+\newcommand{\ob}{\mathsf{Ob}}
+\newcommand{\mor}{\mathsf{Mor}}
+\newcommand{\PSL}{\mathsf{PSL}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand\cyclic\circlearrowleft
+
+\newcommand{\mybar}[1]{\overline{\raisebox{1.2ex}{}#1}}
+\newcommand{\mybaremp}{\mybar{\ \ }}
+
+\usepackage{calc}
+
+\newsavebox{\linksrausbox}
+\newlength{\linksrauslen}
+\newcommand{\linksraus}[1]{\sbox{\linksrausbox}{#1}%
+\settowidth{\linksrauslen}{\usebox{\linksrausbox}\ }%
+\usebox{\linksrausbox} \begin{minipage}[t]{\textwidth-\linksrauslen}}
+\newcommand{\linksrausend}{\end{minipage}\par}%\smallskip}
+
+\usepackage{pgf,pgfarrows,pgfnodes}
+
+%\pgfdeclareimage[width=1mm]{checkmark}{checkmark}
+%\newcommand{\eofr}[1]{\vfill\vspace*{-#1mm}\hfill\pgfuseimage{checkmark}
+%\par\vspace*{#1mm}\vspace*{-4mm}}
+
+\newcommand{\GAP}{\textsf{GAP}}
+
+\pgfdeclareimage[width=0.5in]{univstandlogo}{univstandlogo}
+%\title[Computing the 2-modular characters of Fi$_{23}$] 
+%          % (optional, nur bei langen Titeln nötig)
+%          {Computing the 2-modular characters of Fi$_{23}$}
+\title[Finitely presented groups 2]
+{Finitely presented groups 2}
+
+\author% (optional, nur bei vielen Autoren)
+{Max Neunhöffer}
+
+\institute[University of St Andrews] % (optional, aber oft nötig)
+{ 
+\pgfuseimage{univstandlogo} \\[5mm]
+%University of St Andrews  \\[2mm]
+}
+
+\date[30 July 2013] % (optional, sollte der abgekürzte Konferenzname sein)
+{LMS Short Course on Computational Group Theory \\ 29 July -- 2 August 2013}
+
+\begin{document}
+%\newcmykcolor{MyRedViolet}{0.07 0.90 0 0.34}
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\end{document}
+
