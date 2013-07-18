@@ -108,3 +108,35 @@ Lecture 1:
 ==============
   17+13+10+10=50 min, end of talk
 
+
+Lecture 2:
+
+  * equivalence of finite index subgroups and finite perm reps
+    (3 min)
+  * coset table
+    (2 min)
+
+  * Todd-Coxeter: the idea
+    (5 min)
+  * Worked example
+    (10 min)
+  * GAP session: real world example in GAP
+    (5 min)
+  * Properties of the algorithm, strategies, theorem about completion
+    (5 min)   --> maybe two slides
+
+========
+  5+25=30 min
+
+  * Low index: the idea
+    (5 min)
+  * Worked example
+    (10 min)
+  * GAP session: real world example in GAP
+    (3 min)
+  * Removing duplicates (conjugate subgroups)
+    (2 min)
+
+========
+  30+20=50 min
+
