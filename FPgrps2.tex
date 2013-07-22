@@ -37,6 +37,7 @@
 \usepackage{amssymb}
 \usepackage[noend]{algorithmic}
 %\usepackage{algorithm}
+\usepackage{stmaryrd}
 
 \theoremstyle{definition}
 %\newtheorem{lemma}[theorem]{Lemma}
@@ -73,6 +74,7 @@
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Oh}{\mathcal{O}}
 \newcommand{\Aut}{\mathsf{Aut}}
+\newcommand{\Stab}{\mathsf{Stab}}
 \newcommand{\ob}{\mathsf{Ob}}
 \newcommand{\mor}{\mathsf{Mor}}
 \newcommand{\PSL}{\mathsf{PSL}}
@@ -123,6 +125,783 @@
 \begin{frame}
   \titlepage
 \end{frame}
+
+\section{Finite index subgroups}
+
+\subsection{Theory}
+
+\begin{frame}
+Let $G := \left< X \mid R \right>$. There is a \Struc{bijection}:
+
+\[ \begin{array}{ccc}
+   \{ H \le G \mid [G:H] < \infty \}
+   &\stackrel{\cong}{\longrightarrow} &
+   \{ \varphi : G \to S_n \mid n \in \N, \varphi 
+   \mbox{ a \Alert{grp.~hom.}} \} \\[2mm]
+\pause
+   H
+   & \longmapsto &
+   \mbox{\Alert{action} on } \{ Hg \mid g \in G \} =: H \backslash G \\[2mm]
+\pause
+   \varphi^{-1}(\Stab_{S_n}(1))
+   & \longmapsfrom &
+   \varphi \\
+   \end{array} \]
+\pause
+which \Struc{respects}
+\[ \begin{array}{ccc}
+   H = K^x \mbox{ for some } x \in G
+   & \Longleftrightarrow &
+   \mbox{\Alert{actions} on } \{ Hg \mid g \in G\} \mbox{ and } \\
+   && \{ Kg \mid g \in G \} \mbox{ \Alert{equivalent}} \\
+   \end{array} \]
+\pause
+\centerline{The \Struc{conjugacy classes of finite index subgroups}}
+
+\vspace*{2mm}
+\centerline{are in bijection with}
+
+\vspace*{2mm}
+\centerline{the \Struc{equivalence classes of 
+actions on finitely many points}.}
+\end{frame}
+
+\subsection{Coset tables}
+
+\begin{frame}
+$G$ is \Struc{finitely generated}, we describe \Struc{finite
+actions} by \Alert{coset tables}:
+
+\begin{example}[A coset table]
+\vspace*{-4mm}
+\begin{eqnarray*}
+\mbox{Let } G &:=& \left< c,d \mid c^2 = 1 = d^3 = (cd)^8 = [c,d]^4 \right> \\
+\pause
+       &\cong& L_2(7):2 \cong \left< (2,4)(3,5)(6,8),
+(1,2,3)(5,6,7)\right> \le S_8.
+\end{eqnarray*}
+
+\pause
+\vspace*{-5mm}
+\[ \begin{array}{|c||c|c|c|c|}
+\hline
+\mbox{Coset \#}  & c & c^{-1} & d & d^{-1} \\
+\hline
+\hline
+1 & 1&  1&  2&  3 \\
+\hline
+2 & 4&  4&  3&  1 \\
+\hline
+3 & 5&  5&  1&  2 \\
+\hline
+4 & 2&  2&  4&  4 \\
+\hline
+5 & 3&  3&  6&  7 \\
+\hline
+6 & 8&  8&  7&  5 \\
+\hline
+7 & 7&  7&  5&  6 \\
+\hline
+8 & 6&  6&  8&  8 \\
+\hline
+\end{array} \]
+\pause
+Here, $H = \left< c, dcdc^{-1}d^{-1} \right>$.
+\end{example}
+
+\end{frame}
+
+\section{Todd-Coxeter coset enumeration}
+
+\begin{frame}
+\centerline{\Huge Todd-Coxeter}
+\end{frame}
+
+\subsection{The idea}
+
+\begin{frame}
+Let $G := \left< X \mid R \right>$ and $H = \left< h_1, \ldots, h_k\right>
+< G$.
+
+\pause
+\bigskip
+\begin{block}{Idea of coset enumeration}
+We construct the \Struc{permutation action} of $G$ on the right 
+cosets of $H$.
+
+\pause
+We \Struc{give names to right cosets} and make sure that
+\begin{itemize}
+\item multiplication by elements of $R$ fixes all cosets, and
+\pause
+\item multiplication of $H$ by elements of $H$ fixes this coset.
+\end{itemize}
+\end{block}
+
+\pause
+A ``\Alert{name}'' of a coset is a \Struc{number and a word representing the
+coset}.
+
+\medskip
+\pause
+We \Struc{make up new names} and \Alert{draw conclusions} as we go and 
+hope$\ldots$
+\end{frame}
+
+
+\subsection{A worked example}
+
+\begin{frame}
+Let $G := \left< a,b \mid a^2, b^3, abab\right>$ and $H := \left< ab
+\right>$.
+
+\vspace*{-1.5\baselineskip}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\only<1>{%
+\raisebox{-1.5\baselineskip}{\begin{tabular}[t]{|l|l|c|c|c|c|}
+\hline
+ \#  & coset    & $a$ & $a^{-1}$ & $b$ & $b^{-1}$ \\
+\hline
+\hline
+  1  & H        &     &          &     &          \\
+     &          &     &          &     &          \\
+     &          &     &          &     &          \\
+     &          &     &          &     &          \\
+     &          &     &          &     &          \\
+\hline
+\end{tabular}}
+\hfill
+\begin{minipage}[t]{1.5in}
+\Struc{Events:} \\[1mm] \small
+\mbox{}
+\end{minipage}%
+
+\medskip\rule{0mm}{2ex}%
+We start with an empty table like this.
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\only<2>{%
+\raisebox{-1.5\baselineskip}{\begin{tabular}[t]{|l|l|c|c|c|c|}
+\hline
+ \#  & coset    & $a$ & $a^{-1}$ & $b$ & $b^{-1}$ \\
+\hline
+\hline
+  1  & H        &  2  &          &     &          \\
+  2  & Ha       &     &     1    &     &          \\
+     &          &     &          &     &          \\
+     &          &     &          &     &          \\
+     &          &     &          &     &          \\
+\hline
+\end{tabular}}
+\hfill
+\begin{minipage}[t]{1.5in}
+\Struc{Events:} \\[1mm] \small
+Def.~$2 := Ha$
+\end{minipage}%
+
+\medskip\rule{0mm}{2ex}%
+We call the coset $Ha$ number $2$, a \Struc{definition}.
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\only<3>{%
+\raisebox{-1.5\baselineskip}{\begin{tabular}[t]{|l|l|c|c|c|c|}
+\hline
+ \#  & coset    & $a$ & $a^{-1}$ & $b$ & $b^{-1}$ \\
+\hline
+\hline
+  1  & H        &  2  &     2    &     &          \\
+  2  & Ha       &  1  &     1    &     &          \\
+     &          &     &          &     &          \\
+     &          &     &          &     &          \\
+     &          &     &          &     &          \\
+\hline
+\end{tabular}}
+\hfill
+\begin{minipage}[t]{1.5in}
+\Struc{Events:} \\[1mm] \small
+Def.~$2 := Ha$ \\
+Ded.~$Haa=H$
+\end{minipage}%
+
+\medskip\rule{0mm}{2ex}%
+Note $Haa = H$, since $a^2=1$, this is a \Struc{deduction}.
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\only<4>{%
+\raisebox{-1.5\baselineskip}{\begin{tabular}[t]{|l|l|c|c|c|c|}
+\hline
+ \#  & coset    & $a$ & $a^{-1}$ & $b$ & $b^{-1}$ \\
+\hline
+\hline
+  1  & H        &  2  &     2    &     &     2    \\
+  2  & Ha       &  1  &     1    &  1  &          \\
+     &          &     &          &     &          \\
+     &          &     &          &     &          \\
+     &          &     &          &     &          \\
+\hline
+\end{tabular}}
+\hfill
+\begin{minipage}[t]{1.5in}
+\Struc{Events:} \\[1mm] \small
+Def.~$2 := Ha$ \\
+Ded.~$Haa=H$ \\
+Ded.~$Hab=H$
+\end{minipage}%
+
+\medskip\rule{0mm}{2ex}%
+Note $Hab = H$, since $ab\in H$, this is a \Struc{deduction}.
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\only<5>{%
+\raisebox{-1.5\baselineskip}{\begin{tabular}[t]{|l|l|c|c|c|c|}
+\hline
+ \#  & coset    & $a$ & $a^{-1}$ & $b$ & $b^{-1}$ \\
+\hline
+\hline
+  1  & H        &  2  &     2    &  3  &     2    \\
+  2  & Ha       &  1  &     1    &  1  &          \\
+  3  & Hb       &  4  &          &     &     1    \\
+  4  & Hba      &     &     3    &     &          \\
+     &          &     &          &     &          \\
+\hline
+\end{tabular}}
+\hfill
+\begin{minipage}[t]{1.5in}
+\Struc{Events:} \\[1mm] \small
+Def.~$2 := Ha$ \\
+Ded.~$Haa=H$ \\
+Ded.~$Hab=H$ \\
+Def.~$3 := Hb$ \\
+Def.~$4 := Hba$
+\end{minipage}%
+
+\medskip\rule{0mm}{2ex}%
+Next we \Struc{define} $3 := Hb$ and $4 := Hba$.
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\only<6>{%
+\raisebox{-1.5\baselineskip}{\begin{tabular}[t]{|l|l|c|c|c|c|}
+\hline
+ \#  & coset    & $a$ & $a^{-1}$ & $b$ & $b^{-1}$ \\
+\hline
+\hline
+  1  & H        &  2  &     2    &  3  &     2    \\
+  2  & Ha       &  1  &     1    &  1  &          \\
+  3  & Hb       &  4  &     4    &     &     1    \\
+  4  & Hba      &  3  &     3    &     &          \\
+     &          &     &          &     &          \\
+\hline
+\end{tabular}}
+\hfill
+\begin{minipage}[t]{1.5in}
+\Struc{Events:} \\[1mm] \small
+Def.~$2 := Ha$ \\
+Ded.~$Haa=H$ \\
+Ded.~$Hab=H$ \\
+Def.~$3 := Hb$ \\
+Def.~$4 := Hba$ \\
+Ded.~$Hbaa=Hb$
+\end{minipage}%
+
+\medskip\rule{0mm}{2ex}%
+\Struc{Deduce} $Hbaa=Hb$.
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\only<7>{%
+\raisebox{-1.5\baselineskip}{\begin{tabular}[t]{|l|l|c|c|c|c|}
+\hline
+ \#  & coset    & $a$ & $a^{-1}$ & $b$ & $b^{-1}$ \\
+\hline
+\hline
+  1  & H        &  2  &     2    &  3  &     2    \\
+  2  & Ha       &  1  &     1    &  1  &          \\
+  3  & Hb       &  4  &     4    &  5  &     1    \\
+  4  & Hba      &  3  &     3    &     &          \\
+  5  & Hbb      &     &          &     &     3    \\
+\hline
+\end{tabular}}
+\hfill
+\begin{minipage}[t]{1.5in}
+\Struc{Events:} \\[1mm] \small
+Def.~$2 := Ha$ \\
+Ded.~$Haa=H$ \\
+Ded.~$Hab=H$ \\
+Def.~$3 := Hb$ \\
+Def.~$4 := Hba$ \\
+Ded.~$Hbaa=Hb$ \\
+Def.~$5 := Hbb$
+\end{minipage}%
+
+\medskip\rule{0mm}{2ex}%
+\Struc{Define} $5 := Hbb$.
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\only<8>{%
+\raisebox{-1.5\baselineskip}{\begin{tabular}[t]{|l|l|c|c|c|c|}
+\hline
+ \#  & coset    & $a$ & $a^{-1}$ & $b$ & $b^{-1}$ \\
+\hline
+\hline
+  1  & H        &  2  &     2    &  3  &  \Alert{2} \\
+  2  & Ha       &  1  &     1    &  1  &          \\
+  3  & Hb       &  4  &     4    &  5  &     1    \\
+  4  & Hba      &  3  &     3    &     &          \\
+  5  & Hbb      &     &          &  1  &     3    \\
+\hline
+\end{tabular}}
+\hfill
+\begin{minipage}[t]{1.5in}
+\Struc{Events:} \\[1mm] \small
+$[\ldots]$ \\
+Ded.~$Hab=H$ \\
+Def.~$3 := Hb$ \\
+Def.~$4 := Hba$ \\
+Ded.~$Hbaa=Hb$ \\
+Def.~$5 := Hbb$ \\
+Ded.~$Hbbb=H$
+\end{minipage}%
+
+\medskip\rule{0mm}{2ex}%
+\Struc{Deduce} $Hbbb=H$. \Alert{Thus $Hb^{-1}$ is both $2$ and $5$!}
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\only<9>{%
+\raisebox{-1.5\baselineskip}{\begin{tabular}[t]{|l|l|c|c|c|c|}
+\hline
+ \#  & coset    & $a$ & $a^{-1}$ & $b$ & $b^{-1}$ \\
+\hline
+\hline
+  1  & H        &  2  &     2    &  3  &     2    \\
+  2  & Ha       &  1  &     1    &  1  &     3    \\
+  3  & Hb       &  4  &     4    &  2  &     1    \\
+  4  & Hba      &  3  &     3    &     &          \\
+  5  & Hbb      &  -- &    --    & --  &    --    \\
+\hline
+\end{tabular}}
+\hfill
+\begin{minipage}[t]{1.5in}
+\Struc{Events:} \\[1mm] \small
+$[\ldots]$ \\
+Def.~$3 := Hb$ \\
+Def.~$4 := Hba$ \\
+Ded.~$Hbaa=Hb$ \\
+Def.~$5 := Hbb$ \\
+Ded.~$Hbbb=H$ \\
+Coi.~$5=2$
+\end{minipage}%
+
+\medskip\rule{0mm}{2ex}%
+\Struc{Conclude} $Ha=Hbb$, replace $5$ by $2$: a \Struc{coincidence}.
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\only<10>{%
+\raisebox{-1.5\baselineskip}{\begin{tabular}[t]{|l|l|c|c|c|c|}
+\hline
+ \#  & coset    & $a$ & $a^{-1}$ & $b$ & $b^{-1}$ \\
+\hline
+\hline
+  1  & H        &  2  &     2    &  3  &     2    \\
+  2  & Ha       &  1  &     1    &  1  &     3    \\
+  3  & Hb       &  4  &     4    &  2  &     1    \\
+  4  & Hba      &  3  &     3    &     &          \\
+  5  & Hbb      &  -- &    --    & --  &    --    \\
+\hline
+\end{tabular}}
+\hfill
+\begin{minipage}[t]{1.5in}
+\Struc{Events:} \\[1mm] \small
+$[\ldots]$ \\
+Def.~$3 := Hb$ \\
+Def.~$4 := Hba$ \\
+Ded.~$Hbaa=Hb$ \\
+Def.~$5 := Hbb$ \\
+Ded.~$Hbbb=H$ \\
+Coi.~$5=2$
+\end{minipage}%
+
+\medskip\rule{0mm}{2ex}%
+Note $Habab=H$, a \Struc{deduction} that is already known.
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\only<11>{%
+\raisebox{-1.5\baselineskip}{\begin{tabular}[t]{|l|l|c|c|c|c|}
+\hline
+ \#  & coset    & $a$ & $a^{-1}$ & $b$ & $b^{-1}$ \\
+\hline
+\hline
+  1  & H        &  2  &     2    &  3  &     2    \\
+  2  & Ha       &  1  &     1    &  1  & \Alert{3}\\
+  3  & Hb       &  4  &     4    &  2  &     1    \\
+  4  & Hba      &  3  &     3    &  2  &          \\
+  5  & Hbb      &  -- &    --    & --  &    --    \\
+\hline
+\end{tabular}}
+\hfill
+\begin{minipage}[t]{1.5in}
+\Struc{Events:} \\[1mm] \small
+$[\ldots]$ \\
+Def.~$4 := Hba$ \\
+Ded.~$Hbaa=Hb$ \\
+Def.~$5 := Hbb$ \\
+Ded.~$Hbbb=H$ \\
+Coi.~$5=2$ \\
+Ded.~$Hbab=Ha$
+\end{minipage}%
+
+\medskip\rule{0mm}{2ex}%
+Use $Ha \cdot abab=Ha$, \Struc{deduce} $Hbab = Ha$.
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\only<12->{%
+\raisebox{-1.5\baselineskip}{\begin{tabular}[t]{|l|l|c|c|c|c|}
+\hline
+ \#  & coset    & $a$ & $a^{-1}$ & $b$ & $b^{-1}$ \\
+\hline
+\hline
+  1  & H        &  2  &     2    &  3  &     2    \\
+  2  & Ha       &  1  &     1    &  1  &     3    \\
+  3  & Hb       &  3  &     3    &  2  &     1    \\
+  4  & Hba      &  -- &    --    & --  &    --    \\
+  5  & Hbb      &  -- &    --    & --  &    --    \\
+\hline
+\end{tabular}}
+\hfill
+\begin{minipage}[t]{1.5in}
+\Struc{Events:} \\[1mm] \small
+$[\ldots]$ \\
+Ded.~$Hbaa=Hb$ \\
+Def.~$5 := Hbb$ \\
+Ded.~$Hbbb=H$ \\
+Coi.~$5=2$ \\
+Ded.~$Hbab=Ha$ \\
+Table closed.
+\end{minipage}%
+
+\medskip\rule{0mm}{2ex}%
+Conclude $Hba=Hb$, replace $4$ by $3$. \Struc{Table is closed}.
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bigskip
+\uncover<13->{Indeed, we have found a \Struc{permutation representation}
+on $3$~points. The subgroup $H$ fixes the first point.}
+
+\medskip
+\uncover<14->{Since we have
+\Struc{checked all relations} we have found a \Alert{group homomorphism} 
+from $G$ to $S_3$.}
+\end{frame}
+
+\subsection{GAP session}
+
+\begin{frame}
+
+\centerline{\url{http://tinyurl.com/MNGAPsess/GAP\_FP\_4.g}}
+% GAP session showing some coset enumerations
+
+\end{frame}
+
+\subsection{Strategies}
+
+\begin{frame}
+
+\end{frame}
+
+\subsection{Properties of the algorithm}
+
+\begin{frame}
+The Todd-Coxeter algorithm has the following features:
+
+\begin{itemize}
+\item There is a great deal of \Struc{choice} of what to do when and various
+\Struc{strategies}.
+\pause
+\item \Alert{If it terminates}, it \Struc{proves} that $[G:H]$ is finite
+and it \Struc{constructs} the permutation action of $G$ on the right cosets
+of $H$.
+\pause
+\item \Alert{If $[G:H]$ is finite}, then the algorithm
+\Struc{terminates eventually} (with the right strategy).
+\pause
+\item \Alert{No limit} on \Struc{memory} and \Struc{runtime} is known
+a priori.
+\pause
+\item A completed coset enumeration with $H=\{1\}$ \Struc{proves} $G$ to be 
+\Struc{finite} and \Struc{determines the order}.
+\pause
+\item A \Struc{not-yet-terminated} coset enumeration \Alert{proves nothing
+whatsoever}.
+\end{itemize}
+\end{frame}
+
+
+\subsection{Good news: terminates if index is finite}
+
+\begin{frame}
+
+\end{frame}
+
+
+\section{Enumerating low index subgroups}
+
+\begin{frame}
+\centerline{\Huge Low index}
+\end{frame}
+
+\subsection{The idea}
+
+\begin{frame}
+Let $G := \left< X \mid R \right>$.
+
+\pause
+\bigskip
+\begin{block}{Idea of the low index procedure}
+We want to construct a \Struc{permutation action} of $G$ on
+$k$ points.
+\pause
+This is equivalent to the action on the cosets of a subgroup $H$ of index
+$k$.
+
+\pause
+We \Struc{start with an empty coset table with $k$ rows} and
+\begin{itemize}
+\item \Struc{try out} all possibilities to fill it in (\Alert{finite!}),
+\pause
+\item \Struc{check} that all elements of $R$ act trivially,
+\pause
+\item \Struc{use backtrack search},
+\pause
+\item \Struc{determine} the point stabiliser $H$ in each case, and
+\pause
+\item \Struc{remove} equivalent actions (conjugate subgroups $H$).
+\end{itemize}
+\end{block}
+
+\medskip
+$\Longrightarrow$ This \Alert{very quickly} becomes \Alert{impractical} 
+for larger $k$.
+\end{frame}
+
+
+\subsection{A worked example}
+
+\begin{frame}
+\frametitle{Low index: an example}
+
+Let $G := \left< a,b \mid a^2, b^3, abab\right>$ and $k=3$.
+
+%\vspace*{-1.5\baselineskip}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\only<1>{%
+%\raisebox{-1.5\baselineskip}{
+\begin{tabular}[t]{|l|l|c|c|c|c|}
+\hline
+ \#  &  $a$ & $b$ & $b^{-1}$ \\
+\hline
+\hline
+  1  &      &     &          \\
+  2  &      &     &          \\
+  3  &      &     &          \\
+\hline
+\end{tabular}
+\hfill
+\begin{minipage}[t]{2.5in}
+\Struc{Guesses:} \\[1mm] \small
+\mbox{}
+\end{minipage}%
+
+\medskip\rule{0mm}{2ex}%
+We start with an empty table like this.
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\only<2>{%
+%\raisebox{-1.5\baselineskip}{
+\begin{tabular}[t]{|l|l|c|c|c|c|}
+\hline
+ \#  &  $a$ & $b$ & $b^{-1}$ \\
+\hline
+\hline
+  1  &   1  &     &          \\
+  2  &      &     &          \\
+  3  &      &     &          \\
+\hline
+\end{tabular}
+\hfill
+\begin{minipage}[t]{2.5in}
+\Struc{Guesses:} \\[1mm] \small
+$1a = 1$
+\end{minipage}%
+
+\medskip\rule{0mm}{2ex}%
+We first assume $1a = 1$. Nothing follows.
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\only<3>{%
+%\raisebox{-1.5\baselineskip}{
+\begin{tabular}[t]{|l|l|c|c|c|c|}
+\hline
+ \#  &  $a$ & $b$ & $b^{-1}$ \\
+\hline
+\hline
+  1  &   1  &  2  &          \\
+  2  &      &     &    1     \\
+  3  &      &     &          \\
+\hline
+\end{tabular}
+\hfill
+\begin{minipage}[t]{2.5in}
+\Struc{Guesses:} \\[1mm] \small
+$1a = 1$ \\
+$1b = 2$ (wlog)
+\end{minipage}%
+
+\medskip\rule{0mm}{2ex}%
+$1b=1$ would be intransitive, so (wlog) $1b = 2$.
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\only<4>{%
+%\raisebox{-1.5\baselineskip}{
+\begin{tabular}[t]{|l|l|c|c|c|c|}
+\hline
+ \#  &  $a$ & $b$ & $b^{-1}$ \\
+\hline
+\hline
+  1  &   1  &  2  &  \Alert{2}        \\
+  2  &      &\Alert{1}     &    1     \\
+  3  &      &     &          \\
+\hline
+\end{tabular}
+\hfill
+\begin{minipage}[t]{2.5in}
+\Struc{Guesses:} \\[1mm] \small
+$1a = 1$ \\
+$1b = 2$ (wlog) \\
+\Alert{$2b=1$}
+\end{minipage}%
+
+\medskip\rule{0mm}{2ex}%
+From $2b=1$ would follow $1bbb=2$, a contradiction.
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\only<5>{%
+%\raisebox{-1.5\baselineskip}{
+\begin{tabular}[t]{|l|l|c|c|c|c|}
+\hline
+ \#  &  $a$ & $b$ & $b^{-1}$ \\
+\hline
+\hline
+  1  &   1  &  2  &          \\
+  2  &      &  3  &    1     \\
+  3  &      &     &    2     \\
+\hline
+\end{tabular}
+\hfill
+\begin{minipage}[t]{2.5in}
+\Struc{Guesses:} \\[1mm] \small
+$1a = 1$ \\
+$1b = 2$ (wlog)
+\end{minipage}%
+
+\medskip\rule{0mm}{2ex}%
+So we backtrack and conclude $2b=3$.
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\only<6>{%
+%\raisebox{-1.5\baselineskip}{
+\begin{tabular}[t]{|l|l|c|c|c|c|}
+\hline
+ \#  &  $a$ & $b$ & $b^{-1}$ \\
+\hline
+\hline
+  1  &   1  &  2  &    3     \\
+  2  &      &  3  &    1     \\
+  3  &      &  1  &    2     \\
+\hline
+\end{tabular}
+\hfill
+\begin{minipage}[t]{2.5in}
+\Struc{Guesses:} \\[1mm] \small
+$1a = 1$ \\
+$1b = 2$ (wlog)
+\end{minipage}%
+
+\medskip\rule{0mm}{2ex}%
+It follows that $3b=1$ for $1bbb=1$ to hold.
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\only<7>{%
+%\raisebox{-1.5\baselineskip}{
+\begin{tabular}[t]{|l|l|c|c|c|c|}
+\hline
+ \#  &  $a$ & $b$ & $b^{-1}$ \\
+\hline
+\hline
+  1  &   1  &  2  &    3     \\
+  2  & \Alert{2} &  3  &    1     \\
+  3  & \Alert{3} &  1  &    2     \\
+\hline
+\end{tabular}
+\hfill
+\begin{minipage}[t]{2.5in}
+\Struc{Guesses:} \\[1mm] \small
+$1a = 1$ \\
+$1b = 2$ (wlog)
+\end{minipage}%
+
+\medskip\rule{0mm}{2ex}%
+$2a=2$ would imply $3a=3$ and then $1abab=3$.
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\only<8->{%
+%\raisebox{-1.5\baselineskip}{
+\begin{tabular}[t]{|l|l|c|c|c|c|}
+\hline
+ \#  &  $a$ & $b$ & $b^{-1}$ \\
+\hline
+\hline
+  1  &   1  &  2  &    3     \\
+  2  &   3  &  3  &    1     \\
+  3  &   2  &  1  &    2     \\
+\hline
+\end{tabular}
+\hfill
+\begin{minipage}[t]{2.5in}
+\Struc{Guesses:} \\[1mm] \small
+$1a = 1$ \\
+$1b = 2$ (wlog)
+\end{minipage}%
+
+\medskip\rule{0mm}{2ex}%
+Thus we have $2a=3$ and everything is good.
+}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bigskip
+\uncover<9->{%
+For this solution $H=\left<a\right>$.}
+
+\bigskip
+\uncover<10->{%
+To go on, we would change the assumption $1a=1$ to $1a=2$ (wlog)
+and continue the search.}
+
+\end{frame}
+
+\subsection{GAP session}
+
+\begin{frame}
+
+\centerline{\url{http://tinyurl.com/MNGAPsess/GAP\_FP\_5.g}}
+% GAP session showing low index computation, also with iterator
+
+\end{frame}
+
+\subsection{Removing duplicates}
+
+\begin{frame}
+
+\end{frame}
+
 
 \end{document}
 
