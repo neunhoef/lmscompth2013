@@ -25,4 +25,5 @@ Index(G,H);
 while not(IsDoneIterator(i)) do
   H := NextIterator(i);
   Print(Index(G,H),"\c ");
-od; Print("\n\n");
+od;
+Print("\n\n");
