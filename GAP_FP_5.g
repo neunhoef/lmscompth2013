@@ -1,0 +1,28 @@
+F := FreeGroup("s","t");
+G := F/ParseRelators(F,"1=s^3=t^2");
+l := LowIndexSubgroupsFpGroup(G,4);
+List(l,H->Index(G,H));
+PrintArray(TransposedMat(CosetTable(G,l[5])));
+act := FactorCosetAction(G,l[3]);
+p := Image(act);
+Size(p);
+Print("\nAnother example:\n\n");
+F := FreeGroup("a","b","c");
+G := F/ParseRelators(F,"1=a*b*c*b*a=b*a*b*a*c");
+i := LowIndexSubgroupsFpGroupIterator(G,8);
+IsDoneIterator(i);
+H := NextIterator(i);
+Index(G,H);
+IsDoneIterator(i);
+H := NextIterator(i);
+Index(G,H);
+IsDoneIterator(i);
+H := NextIterator(i);
+Index(G,H);
+IsDoneIterator(i);
+H := NextIterator(i);
+Index(G,H);
+while not(IsDoneIterator(i)) do
+  H := NextIterator(i);
+  Print(Index(G,H),"\c ");
+od; Print("\n\n");
