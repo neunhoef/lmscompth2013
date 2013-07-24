@@ -143,12 +143,13 @@ Lecture 2:
 Lecture 3:
 
   * Introduce situation H<G=<X|R>=F/N and H=E/F, explain Schreier
-    generators
-    (5 min)
+    generators, give Schreier lemma and Nielsen-Schreier
+    (4 min)
   * Theorem about generation of H by Schreier gens
     Schreier Transversal (prefix closed)
     E is free on Schreier gens
-    Give presentation for H on Schreier Gens
+    (4 min)
+  * Give presentation for H on Schreier Gens
     Say Reidemeister-Schreier
     (5 min)
   * GAP example: show rewriting
