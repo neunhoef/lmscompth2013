@@ -222,14 +222,144 @@ if $T$ is \Struc{prefix-closed}, then
 $H=E/N$ is isomorphic to
 
 \vspace*{-3mm}
-\[ H' := \left< Y \mid \rho(twt^{-1}) \mbox{ for all } t \in T, w \in R \right\}.
+\[ H' := \left< Y \mid \rho(twt^{-1}) \mbox{ for all } t \in T, w \in R
+\right\}.
 \]
 \end{theorem}
 
+\pause
+Thus: if $[G:H] < \infty$ and we have a coset table for $G$ and
+$H$, we can \Struc{compute the Schreier generators} and \Struc{write down this
+presentation} for $H$ explicitly. This is the \Alert{Reidemeister-Schreier
+Algorithm}.
+
+\pause
+\begin{example}[The dihedral group of order $8$]
+Let $G := \left< s,t \mid s^4, t^2, stst\right>$ and $H := \left< s^2,t
+\right>$. We know that $|G|=8$ and $H$ is a Klein four group.
+
+\pause
+\vspace*{-3mm}
+Here is the \Struc{coset table}: 
+\begin{tabular}{|l||c|c|c|}
+\hline
+   & $s$ & $s^{-1}$ & t \\
+ \hline
+ \hline
+$1=H$  &  $2$  &  $ 2$    & $1$ \\
+\hline
+$2=Hs$ &  $1$  &  $ 1$    & $2$ \\
+\hline
+\end{tabular}
+
+\pause
+The {\color{blue}transversal $T$} is \Alert{$\{1,s\}$}, \pause 
+the {\color{blue}Schreier generators} are:
+$\{1ss^{-1}=1, 1t1^{-1}=t, ss1^{-1}=s^2, sts^{-1}\}\setminus\{1\}
+\pause
+ = \Alert{\{ t,s^2,sts^{-1} \}}$.
+\end{example}
 \end{frame}
+
+\begin{frame}
+\begin{example}[The dihedral group of order $8$ (continued)]
+Let $G := \left< s,t \mid s^4, t^2, stst\right>$ and $H := \left< s^2,t
+\right>$.
+
+{\color{blue}Transversal:} $T=\{1,s\}$, 
+{\color{blue}Schreier generators:} $\{ t,s^2,sts^{-1} \}$.
+
+\pause
+If $F:=F(s,t)$ and $N := \left<\left< s^4,t^2,stst\right>\right>$
+then $G=F/N$ and $E/N:=H$, \pause 
+
+thus $E$ is {\color{red}free on 
+$(A,B,C) := (t,s^2,sts^{-1})$} (it is of index $2$ in $F$).
+
+\pause
+{\color{blue}Reidemeister-Schreier} now gives the following relators:
+
+\begin{itemize}
+\item $\rho(1s^41^{-1}) = \rho(s^4) =
+(1{\color{blue}s}s^{-1})(s{\color{blue}s}1^{-1})(1{\color{blue}s}s^{-1})(s{\color{blue}s}1^{-1})=B^2$,
+\pause
+\item $\rho(ss^4s^{-1} = \rho(s^4) = B^2$,
+\pause
+\item $\rho(1t^21^{-1}) = \rho(t^2) =
+(1{\color{blue}t}1^{-1})(1{\color{blue}t}1^{-1}) 
+= A^2$,
+\pause
+\item $\rho(st^2s^{-1}) = \rho(st^2s^{-1}) 
+=
+(1{\color{blue}s}s^{-1})(s{\color{blue}t}s^{-1})(s{\color{blue}t}s^{-1})(s{\color{blue}s^{-1}}1^{-1}) 
+= C^2$,
+\pause
+\item $\rho(1stst1^{-1}) = \rho(stst) 
+=
+(1{\color{blue}s}s^{-1})(s{\color{blue}t}s^{-1})(s{\color{blue}s}1^{-1})(1{\color{blue}t}1^{-1}) 
+= CBA$,
+\pause
+\item $\rho(sststs^{-1}) 
+=
+(1{\color{blue}s}s^{-1})(s{\color{blue}s}1^{-1})(1{\color{blue}t}1^{-1})
+(1{\color{blue}s}s^{-1})(s{\color{blue}t}s^{-1})(s{\color{blue}s^{-1}}1^{-1})
+= BAC$.
+\end{itemize}
+\pause
+Thus, we get that $H \cong \left< A,B,C \mid B^2, A^2, C^2, CBA, BAC\right>$.
+\end{example}
+
+\end{frame}
+
+\begin{frame}
+Finding presentations on the \Struc{user supplied generators} works similarly.
+
+\vspace*{2cm}
+\pause
+\centerline{\url{http://tinyurl.com/MNGAPsess/GAP\_FP\_6.g}}
+% GAP session here to type do the same example and then a bigger one.
+\end{frame}
+
+\section{Proving groups to be infinite}
+
+\subsection{Combine low index with Abelian invariants}
+
+\begin{frame}
+\begin{problem}
+Let $G := \left< X \mid R \right>$. How could we prove that $|G| = \infty$?
+\end{problem}
+
+\pause
+\textbf{First idea:} Abelian invariants, but what if they are all positive?
+
+\bigskip
+\pause
+
+\textbf{Second idea:}
+\begin{itemize}
+\item Compute some \Struc{low index subgroups}, result is a coset table
+\pause
+\item Use \Struc{Reidemeister-Schreier} to find \Alert{presentations
+for them}.
+\pause
+\item Compute the \Struc{Abelian invariants} on these presentations.
+\pause
+\item If we find a $0$, the group $G$ is infinite as well.
+\end{itemize}
+
+\pause
+\vspace*{5mm}
+\centerline{\url{http://tinyurl.com/MNGAPsess/GAP\_FP\_7.g}}
+% The modular group and maybe something else.
+\end{frame}
+
 \section{Rewrite systems}
 
 \subsection{Fundamental definitions}
+
+\begin{frame}
+
+\end{frame}
 
 \subsection{Local confluence and critical pairs}
 
