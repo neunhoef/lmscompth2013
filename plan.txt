@@ -147,15 +147,17 @@ Lecture 3:
     (4 min)
   * Theorem about generation of H by Schreier gens
     Schreier Transversal (prefix closed)
+    Idea of proof, definition of \rho
     E is free on Schreier gens
     (4 min)
   * Give presentation for H on Schreier Gens
     Say Reidemeister-Schreier
+    Show example
     (5 min)
   * GAP example: show rewriting
-    (5 min)
+    (3 min)
 =========
-  15 min
+  16 min
 
   * This in connection with Low index or other finite quotient methods
     allows to show that groups are infinite
@@ -163,7 +165,7 @@ Lecture 3:
   * GAP example
     (2 min)
 =========
-  15+5=20 min
+  16+5=21 min
 
   * Def. Rewrite system, terminating, confluent, complete
     (3 min)
