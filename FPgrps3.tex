@@ -358,10 +358,80 @@ for them}.
 \subsection{Fundamental definitions}
 
 \begin{frame}
+\begin{definition}[Rewrite system]
+Let $A$ be a finite alphabet and $A^*$ the set of all words in $A$.
 
+A \Struc{rewrite system (RWS)} is a set of \Alert{rules}
+$v \to w$ where $v,w \in A^*$.
+
+\pause
+We then say that $avb \to awb$ for all $a,b \in A^*$ \pause and write
+$c \Rightarrow d$, if $c=d$ or there is a finite tuple $(c_1,c_2,\ldots,c_k)$
+of words with 
+
+\vspace*{-3mm}
+\[ c \to c_1 \to c_2 \to \cdots \to c_k \to d\] 
+
+%\vspace*{-3mm}
+%\pause
+%That is, $\Rightarrow$ is the \Struc{transitive and reflexive closure} of the
+%relation $\to$ on $A^*$.
+\pause
+A word $v \in A^*$ is called \Struc{irreducible}, if there is no $w
+\in A^*$ with $v \to w$.
+\end{definition}
+
+\pause
+\begin{definition}[Termination]
+A RWS is called \Struc{terminating}, if
+there is no infinite chain of words
+$w_1 \to w_2 \to w_3 \to \cdots$
+\end{definition}
+
+\pause
+\begin{definition}[Confluence and completeness]
+A RWS is called \Struc{confluent}, if for all $a,b,c \in A^*$
+with $a \RightArrow b$ and $a \RightArrow c$ there is a $d \in A^*$
+with $b \RightArrow d$ and $c \RightArrow d$.
+
+\pause
+A \Struc{terminating} and \Struc{confluent} RWS is called
+\Struc{complete}.
+\end{definition}
 \end{frame}
 
 \subsection{Local confluence and critical pairs}
+
+\begin{frame}
+\begin{lemma}
+If a RWS is terminating, then every word $w \in A^*$ can only be
+rewritten to finitely many words.
+\end{lemma}
+
+\pause
+\begin{defprop}[Local confluence]
+A RWS is called \Struc{locally confluent}, if for all $a,b,c \in A^*$
+with $a \to b$ and $a \to c$ there is a $d \in A^*$
+with $b \Rightarrow d$ and $c \Rightarrow d$.
+
+\pause
+A \Alert{terminating} and \Alert{locally complete} RWS is \Alert{complete}.
+\end{definition}
+
+\pause
+\begin{definition}[Equivalence]
+Let $\Leftrightarrow$ be the \Struc{transitive, reflexive and
+symmetric closure} of $\to$, i.e., the coursest equivalence relation
+with $v \Leftrightarrow w$ for all $v \to w$.
+\end{definition}
+
+\pause
+\begin{lemma}
+If a RWS is complete, then every $\Leftrightarrow$ class contains
+exactly one irreducible element and all words in the class can be
+rewritten to it.
+\end{lemma}
+\end{frame}
 
 \section{The Knuth-Bendix procedure}
 
