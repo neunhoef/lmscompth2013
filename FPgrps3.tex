@@ -391,8 +391,8 @@ $w_1 \to w_2 \to w_3 \to \cdots$
 \pause
 \begin{definition}[Confluence and completeness]
 A RWS is called \Struc{confluent}, if for all $a,b,c \in A^*$
-with $a \RightArrow b$ and $a \RightArrow c$ there is a $d \in A^*$
-with $b \RightArrow d$ and $c \RightArrow d$.
+with $a \Rightarrow b$ and $a \Rightarrow c$ there is a $d \in A^*$
+with $b \Rightarrow d$ and $c \Rightarrow d$.
 
 \pause
 A \Struc{terminating} and \Struc{confluent} RWS is called
@@ -400,7 +400,7 @@ A \Struc{terminating} and \Struc{confluent} RWS is called
 \end{definition}
 \end{frame}
 
-\subsection{Local confluence and critical pairs}
+\subsection{Local confluence}
 
 \begin{frame}
 \begin{lemma}
@@ -415,27 +415,171 @@ with $a \to b$ and $a \to c$ there is a $d \in A^*$
 with $b \Rightarrow d$ and $c \Rightarrow d$.
 
 \pause
-A \Alert{terminating} and \Alert{locally complete} RWS is \Alert{complete}.
-\end{definition}
+A \Alert{terminating} and \Alert{locally confluent} RWS is \Alert{complete}.
+\end{defprop}
 
 \pause
 \begin{definition}[Equivalence]
 Let $\Leftrightarrow$ be the \Struc{transitive, reflexive and
-symmetric closure} of $\to$, i.e., the coursest equivalence relation
-with $v \Leftrightarrow w$ for all $v \to w$.
+symmetric closure} of $\to$, i.e., the finest equivalence relation
+with $v \Leftrightarrow w$ for all rules $v \to w$.
 \end{definition}
 
 \pause
 \begin{lemma}
 If a RWS is complete, then every $\Leftrightarrow$ class contains
-exactly one irreducible element and all words in the class can be
-rewritten to it.
+\Struc{exactly one irreducible element} and all words in the class 
+\Struc{can be rewritten} to it.
 \end{lemma}
+\end{frame}
+
+\subsection{Critical pairs}
+
+\begin{frame}
+\begin{question}
+How can it ever happen, that \Struc{$a \to b$} and \Struc{$a \to c$}, 
+but that $b$ and $c$ \Alert{cannot be rewritten to any common word $d$}?
+\end{question}
+
+\pause
+Assume $v_1\to w_1$ and $v_2 \to w_2$ are rules, if $a=p v_1 q v_2
+r$, then both rules apply, but we have:
+\[ \xymatrix{ & p v_1 q v_2 r \only<3->{\ar[dl] \ar[dr]} & \\
+             \uncover<3->{p w_1 q v_2 r} \only<4->{\ar[dr]} && 
+             \uncover<3->{p v_1 q w_2 r} \only<4->{\ar[dl]} \\
+             & \uncover<4->{p w_1 q w_2 r}&} \]
+             \vspace*{3mm}
+\uncover<5->{%
+\centerline{Thus: \Struc{the left hand sides have to} \Alert{overlap}!}}
+
+\end{frame}
+
+\begin{frame}
+\begin{definition}[Critical pair]
+A pair of rules $v_1 \to w_1$ and $v_2 \to w_2$ is called a \Struc{critical
+pair}, if:
+\begin{itemize}
+\item $v_1 = r\Alert{s}$ and $v_2 = \Alert{s}t$ for some $r,s,t \in A^*$, or
+\item $v_1 = r\Alert{s}t$ and $v_2 = \Alert{s}$ for some $r,s,t \in A^*$,
+\end{itemize}
+with $s \neq \varepsilon$ in both cases.
+\end{definition}
+
+\pause
+\begin{lemma}
+A RWS is \Struc{locally confluent} if and only if the following
+conditions are fulfilled \Alert{for all critical pairs} 
+$v_1 \to w_1$ and $v_2 \to w_2$:
+\begin{itemize}
+\item If $v_1=rs$ and $v_2=st$, then $\exists w \in A^*$ with 
+$w_1 t \Rightarrow w$ and $r w_2 \Rightarrow w$.
+\item If $v_1=rst$ and $v_2=s$ then $\exists w \in A^*$ with
+$rw_2t \Rightarrow w$ and $w_1 \Rightarrow w$.
+\end{itemize}
+\end{lemma}
+
+\bigskip
+\pause
+We can \Struc{check confluence} of a \Struc{finite,
+terminating RWS} \Alert{algorithmically}!
 \end{frame}
 
 \section{The Knuth-Bendix procedure}
 
-\subsection{Completing rewrite systems}
+\subsection{The idea}
+
+\begin{frame}
+\begin{definition}[Reduction ordering]
+A well-ordering on $A^*$ is called a \Struc{reduction ordering}, if $u \le
+v$ implies $uw \le vw$ and $wu \le wv$ for all $u,v,w \in A^*$.
+
+\pause
+\textbf{Example:} ``shortlex'': sort first by length and then
+lexicographically.
+\end{definition}
+
+\pause
+\begin{block}{Idea of the Knuth-Bendix completion procedure}
+Start with a \Struc{finite RWS} and choose a \Struc{reduction ordering}
+such that $v > w$ for all rules $v \to w$.
+
+\pause
+Consider all possible \Struc{critical pairs} $v_1 \to w_1$ and
+$v_2 \to w_2$, and:
+\begin{itemize}
+\item \Struc{rewrite} $w_1 \Rightarrow w'_1$ and $w_2 \Rightarrow w'_2$ with
+$w'_1$ and $w'_2$ \Alert{irreducible},
+\item if $w'_1 \neq w'_2$, then 
+\begin{itemize}
+\item \mbox{}\rlap{\Struc{either add}}\hspace*{2cm}% 
+$w'_1 \to w'_2$ if $w'_1 > w'_2$,
+\item \mbox{}\rlap{\Struc{or add}}\hspace*{2cm}% 
+$w'_2 \to w'_1$ if $w'_2 > w'_1$.
+\end{itemize}
+\end{itemize}
+\end{block}
+
+\smallskip
+\pause
+If the RWS is already or becomes confluent this procedure terminates.
+\end{frame}
+
+\subsection{Properties of the procedure}
+
+\begin{frame}
+Every \Struc{minimal word} (in its class) is \Struc{irreducible}.
+
+\pause
+If the RWS is \Struc{confluent}, then the converse is true, too.
+
+\pause
+\begin{proposition}
+If $v \Leftrightarrow w$ and $v > w$, then after running Knuth-Bendix
+\Alert{long enough}, we will get $v \Rightarrow w$.
+\end{proposition}
+
+\pause
+\begin{proposition}
+If the RWS has only \Struc{finitely many $\Leftrightarrow$-classes}, then
+Knuth-Bendix \Alert{will terminate} with a complete RWS.
+\end{proposition}
+
+\pause
+\begin{remark}
+With a complete RWS we have a good way to decide $v \Leftrightarrow w$.
+\end{remark}
+\end{frame}
+
+\subsection{Knuth-Bendix and groups}
+
+\begin{frame}
+Let $G = \left< X \mid R\right>$. \pause
+
+\bigskip
+We can present $G$ as a \Struc{monoid} by adding relators
+$xx^{-1}=\varepsilon$ and
+$x^{-1}x=\varepsilon$ for all $x \in X$. \pause
+
+\bigskip
+For $\hat X := X \cup X^{-1}$ the set $\hat X^*$ is
+a \Struc{free monoid} and $G$ is a quotient. \pause
+
+\bigskip
+If we \Struc{choose a reduction order} and 
+add \Alert{one rule for each equation} in the
+presentation, then $\Leftrightarrow$ is precisely the congruence on
+$\hat X^*$ such that $G \cong \hat X^*/\Leftrightarrow$.
+
+\pause
+\bigskip
+Therefore, completing this RWS \Struc{solves the word problem in $G$}.
+
+\pause
+\vspace*{5mm}
+\centerline{\url{http://tinyurl.com/MNGAPsess/GAP\_FP\_8.g}}
+% Show a successful Knuth-Bendix run with KBMAG
+
+\end{frame}
 
 \end{document}
 
