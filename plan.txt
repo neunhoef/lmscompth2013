@@ -182,3 +182,36 @@ Lecture 3:
     (5 min)
 =========
   15+5+24=44 min
+
+
+Lecture 4:
+
+  * Small Cancellation Theory: def piece, C'(t), T(t), Theorem
+
+  * Dehn's Algorithm --> is a rewrite system
+    Note this implies linear isoperimetric function
+    How to execute this fast?
+10
+
+  * Hyperbolic groups: have a linear isoperimetric
+    small cancellation => Dehn => hyperbolic => has presentation with Dehn
+10+10=30
+
+  * FSA, definition by picture, regular languages --> regular
+    expressions
+
+  * Explain FSA for a RWS
+
+  * Cyclic words -> Conjugacy classes
+10+10+10=20
+
+  * Def automatic group: word acceptor, mupltiplier automata
+10+10+10+10=40
+
+  * Overview of how to find automaticity
+    GAP session
+10+10+10+10+5=45
+
+  * What we left out.
+10+10+10+10+5+5=50
+
