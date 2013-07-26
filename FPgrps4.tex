@@ -229,7 +229,7 @@ means:
 \item If $w \neq_G 1$, then the output \Alert{can be different},
 depending on the choice in 3.
 \pause
-\item For a word of length $n$, this terminates in \Alert{at most $n$
+\item For a word of length $n$, this terminates after \Alert{at most $n$
 steps}.
 \end{itemize}
 \end{frame}
@@ -246,13 +246,13 @@ this to $xb^{-1}y$.
 Thus: $w=x(ab)x^{-1}\ xb^{-1}y$
 
 \pause
-So $w$ is written as a conjugate of a relator times a shorter word.
+So $w$ is written as a \Struc{conjugate of a relator} times a shorter word.
 
 \begin{lemma}
 If $G = \left< X \mid R \right>$ is small cancellation, then Dehn
 works and every word $w \in \hat X^*$ of length $n$ that
 is equal to $1$ in $G$ is the product of at most $n$ conjugates of a
-relator. Thus, the Dehn function $\delta(n) \le n \ \forall n$.
+relator. Thus, the \Struc{Dehn function} $\delta(n) \le n$ for all $n$.
 \end{lemma}
 
 \pause
@@ -263,6 +263,8 @@ with a Dehn function that is \Struc{bounded by a linear function}.
 
 \pause
 \textbf{We have} for a group $G = \left< X \mid R \right>$:
+
+\vspace*{-3mm}
 \begin{eqnarray*}
  \mbox{small cancellation} &\Longrightarrow& \mbox{Dehn's algorithm works}
    \Longrightarrow \mbox{hyperbolic} \\
@@ -270,28 +272,96 @@ with a Dehn function that is \Struc{bounded by a linear function}.
    \mbox{has presentation with a working Dehn} 
 \end{eqnarray*}
 
+\pause
+\textbf{Question:} How do we \Struc{execute Dehn's algorithm}
+\Alert{efficiently}?
 \end{frame}
 
 \section{Finite state automata}
 
 \subsection{Definition by picture}
 
+\pgfdeclareimage[width=4in]{fsa}{fsa}
+\pgfdeclareimage[width=4in]{nondetfsa}{nondetfsa}
 \begin{frame}
-FSA, definition by picture, regular languages --> regular
-    expressions
+\begin{center}
+\pgfuseimage{fsa}
+\end{center}
+
+\pause
+Every path in this digraph has a \Struc{label}.
+
+\pause
+There is one \Struc{start state} and some \Struc{accept states}.
+\pause
+\[ \mathcal{L} := \left\{ \mbox{labels of paths from start to an accept
+state} \right\} \subseteq \{ X,Y,Z \}^* \]
+
+\pause
+This is a \Alert{regular language}: $XY^*Z(Y+X) + YZ(YZ)^*(Z+XZ^*Y)$.
+\end{frame}
+
+\begin{frame}
+\begin{center}
+\pgfuseimage{nondetfsa}
+\end{center}
+\textbf{Non-deterministic variants:}
+\begin{itemize}
+\item Allow \Struc{empty} (or $\varepsilon$) transitions.
+\pause
+\item Allow \Struc{more than one} transition with the same label leaving a
+state.
+\end{itemize}
+\pause
+\Alert{However:} \begin{minipage}[t]{3.5in}
+The classes of languages of deterministic and
+nondeterministic finite state automata are the same.
+\end{minipage}
 
 \end{frame}
 
 \subsection{Using a FSA for a RWS}
 
 \begin{frame}
-Explain FSA for a RWS
-\end{frame}
+Assume $\cR$ is a RWS and assume for simplicity 
+that \Struc{no left hand side (LHS) of a rewrite is properly contained in
+another one}.
 
-\subsection{Cyclic words and conjugacy classes}
+\pause
+\begin{definition}[FSA for a RWS]
+\textbf{States:}
 
-\begin{frame}
-Cyclic words -> Conjugacy classes
+Define a \Struc{state} for every \Alert{prefix of a LHS of a
+rewrite}.
+
+\pause
+The \Struc{empty prefix} is the \Alert{start state}.
+
+\pause
+The \Struc{complete LHSs} are the \Alert{accept states}.
+
+\smallskip
+\pause
+\textbf{Transitions:}
+
+If XY is a \Struc{non-accepting state}, then there is a transition 
+labelled with ``Z'' to XYZ \Alert{if this is still a prefix} of a LHS.
+
+\pause
+If XYZ is \Struc{not a prefix}, then there is a transition 
+labelled with ``Z'' to the \Alert{longest suffix of XYZ that is a prefix}.
+
+\pause
+\smallskip
+This defines a \Struc{deterministic FSA} which recognises LHSs.
+\end{definition}
+
+\pause
+$\Longrightarrow$ \Struc{Very fast algorithm} to \Alert{recognise
+rewrite rules that apply}.
+
+\pause
+$\Longrightarrow$ \Struc{Crucial step for} \Alert{Dehn's algorithm}.
 \end{frame}
 
 \section{Automatic groups}
@@ -299,7 +369,7 @@ Cyclic words -> Conjugacy classes
 \subsection{Definition}
 
 \begin{frame}
-Word acceptors
+Word acceptors, padding
 \end{frame}
 
 \begin{frame}
@@ -307,27 +377,82 @@ Def automatic group: mupltiplier automata
 \end{frame}
 
 \begin{frame}
-The class of automatic groups
+Idea of computing an automatic structure from a presentation.
+
+\pause
+\vspace*{5mm}
+\centerline{\url{http://tinyurl.com/MNGAPsess/GAP\_FP\_9.g}}
+% Show a successful Knuth-Bendix run with KBMAG
+\end{frame}
+
+\subsection{Properties}
+\begin{frame}
+The class of automatic groups is
+\begin{itemize}
+\item \Struc{closed} under taking \Alert{direct products},
+\pause
+\item \Struc{closed} under taking \Alert{free products with finite
+amalgamated subgroup},
+\pause 
+\item \Struc{closed} under taking \Alert{HNN-extensions with finite
+conjugated subgroup}.
+\end{itemize}
+
+\pause
+Furthermore:
+\begin{itemize}
+\item \Struc{Hyperbolic groups} are \Alert{automatic}.
+\pause
+\item \Struc{Free factors} of automatic groups are automatic.
+\pause
+\item It has \Alert{not been proved} that \Struc{direct factors} of
+automatic groups are automatic.
+\pause
+\item If $[G:H] < \infty$, then $G$ is automatic iff $H$ is.
+\end{itemize}
+
+\pause
+\textbf{Thus:} 
+
+\centerline{\Struc{Automatic groups} are a large class of
+groups with \Alert{solvable word problem}.}
 \end{frame}
 
 \section{What we left out}
 
 \begin{frame}
-Parallelisation
+In this lecture series we have \Alert{not mentioned} a lot of topics:
 
-Quotient algorithms: Nilpotent, Soluble, $p$-Quotient
+\pause
+\begin{itemize}
+\item \Struc{Polycyclic groups} (see Bettina's series)
+\pause
+\item \Struc{Parallelisation} of algorithms
+\pause
+\item \Struc{Quotient algorithms}: Nilpotent, Soluble, $p$-Quotient
+\pause
+\item \Struc{Finding matrix representations} (see W.~Plesken et al.)
+\pause
+\item \Struc{Finding presentations} if group is given in 
+\Alert{another representations}
+\pause
+\item \Struc{Symmetric presentations} (see R.~Curtis et al.)
+\pause
+\item \Struc{Infinite presentations}
+\pause
+\item \Struc{Laws} (e.g.~Burnside groups and algorithms for such problems)
+\pause
+\item \Struc{New developments} in \Alert{algorithmic small cancellation
+theory} 
 
-Polycyclic groups
+(see Colva's talk yesterday)
+\end{itemize}
 
-Finding presentations from other representations
+\bigskip
+\pause
+Derek F.~Holt, Bettina Eick, Eamonn A.~O'Brien: 
 
-Symmetric presentations
-
-infinite presentations
-
-laws
-
-new developments in algorithmic small cancellation theory
+\hspace*{1cm}``Handbook of Computational Group Theory''
 \end{frame}
 
 \end{document}

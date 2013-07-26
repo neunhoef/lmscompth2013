@@ -49,7 +49,6 @@ Knuth-Bendix procedure
 Lecture 4:
 Hyperbolic groups
 Small Cancellation conditions: Dehn's algorithm
-  -> GAP example
 Automatic Groups: Definition
   -> KBMAG example
 
@@ -201,9 +200,9 @@ Lecture 4:
     expressions
 
   * Explain FSA for a RWS
+10+10+10=20
 
   * Cyclic words -> Conjugacy classes
-10+10+10=20
 
   * Def automatic group: word acceptor, mupltiplier automata
 10+10+10+10=40
