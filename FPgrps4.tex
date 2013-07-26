@@ -1,0 +1,334 @@
+%\documentclass[handout]{beamer}
+\documentclass{beamer}
+
+\mode<presentation>
+{
+  %\usetheme{Warsaw}
+  %\usetheme{Antibes}
+  %\usetheme{Berkeley}
+  %\usetheme{Copenhagen}
+  %\usetheme{Hannover}
+  %\usetheme{JuanLesPins}
+  %\usetheme[left]{Marburg}
+  %\usetheme{PaloAlto}
+  %\usetheme{sidebar}
+  \usetheme{CambridgeUS}
+  %\useinnertheme[shadow=true]{rounded}
+  %\usetheme{Singapore}
+  %\usecolortheme{crane}
+  %\usecolortheme{lily}
+  %\usecolortheme{beetle}
+  \usecolortheme{orchid}
+  % oder ...
+  %\setbeamercovered{transparent}
+  % oder auch nicht
+  %\setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+  \setbeamertemplate{navigation symbols}{}
+  %\setbeamertemplate{blocks}[rounded][shadow=true]
+  %\setbeamercolor{block body}{bg=bg=normal text.bg!70!black}
+  %\setbeamercolor{subsection in sidebar}{fg=white}
+}
+
+
+\usepackage[british]{babel}
+% oder was auch immer
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[noend]{algorithmic}
+%\usepackage{algorithm}
+\usepackage{stmaryrd}
+
+\theoremstyle{definition}
+%\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{defprop}[theorem]{Definition/Proposition}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{assumption}[theorem]{Assumption}
+\newtheorem{construction}[theorem]{Construction}
+\newtheorem{principle}[theorem]{Principle}
+\newtheorem{idea}[theorem]{Idea}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{algorithm}[theorem]{Algorithm}
+%\newtheorem{problem}[theorem]{Problem}
+
+\usepackage[latin1]{inputenc}
+% oder was auch immer
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+% Oder was auch immer. Zu beachten ist, das Font und Encoding passen
+% müssen. Falls T1 nicht funktioniert, kann man versuchen, die Zeile
+% mit fontenc zu löschen.
+
+%\usepackage[mtbold,subscriptcorrection,mtpluscal]{mathtime}
+
+%\usepackage{graphicx}
+%\usepackage{rotating}
+
+\usepackage[all]{xy}
+
+\newcommand{\Struc}[1]{{\color{structure}#1}}
+\newcommand{\Alert}[1]{{\color{alert}#1}}
+
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Oh}{\mathcal{O}}
+\newcommand{\Aut}{\mathsf{Aut}}
+\newcommand{\Stab}{\mathsf{Stab}}
+\newcommand{\ob}{\mathsf{Ob}}
+\newcommand{\mor}{\mathsf{Mor}}
+\newcommand{\PSL}{\mathsf{PSL}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand\cyclic\circlearrowleft
+
+\newcommand{\mybar}[1]{\overline{\raisebox{1.2ex}{}#1}}
+\newcommand{\mybaremp}{\mybar{\ \ }}
+
+\usepackage{calc}
+
+\newsavebox{\linksrausbox}
+\newlength{\linksrauslen}
+\newcommand{\linksraus}[1]{\sbox{\linksrausbox}{#1}%
+\settowidth{\linksrauslen}{\usebox{\linksrausbox}\ }%
+\usebox{\linksrausbox} \begin{minipage}[t]{\textwidth-\linksrauslen}}
+\newcommand{\linksrausend}{\end{minipage}\par}%\smallskip}
+
+\usepackage{pgf,pgfarrows,pgfnodes}
+
+%\pgfdeclareimage[width=1mm]{checkmark}{checkmark}
+%\newcommand{\eofr}[1]{\vfill\vspace*{-#1mm}\hfill\pgfuseimage{checkmark}
+%\par\vspace*{#1mm}\vspace*{-4mm}}
+
+\newcommand{\GAP}{\textsf{GAP}}
+
+\pgfdeclareimage[width=0.5in]{univstandlogo}{univstandlogo}
+%\title[Computing the 2-modular characters of Fi$_{23}$] 
+%          % (optional, nur bei langen Titeln nötig)
+%          {Computing the 2-modular characters of Fi$_{23}$}
+\title[Finitely presented groups 4]
+{Finitely presented groups 4}
+
+\author% (optional, nur bei vielen Autoren)
+{Max Neunhöffer}
+
+\institute[University of St Andrews] % (optional, aber oft nötig)
+{ 
+\pgfuseimage{univstandlogo} \\[5mm]
+%University of St Andrews  \\[2mm]
+}
+
+\date[2 August 2013] % (optional, sollte der abgekürzte Konferenzname sein)
+{LMS Short Course on Computational Group Theory \\ 29 July -- 2 August 2013}
+
+\begin{document}
+%\newcmykcolor{MyRedViolet}{0.07 0.90 0 0.34}
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\section{Small cancellation theory}
+
+\subsection{The theory}
+
+\begin{frame}
+Let $G := \left< X \mid R \right>$ with $\hat X := X \cup X^{-1}$.
+Assume that $R$ is \Struc{closed under rotation and inversion}
+and all $r \in R$ are reduced.
+
+\pause
+\begin{definition}[Piece]
+A \Struc{piece} (w.r.t.~$R$) is a nonempty word $p$ that is a prefix of
+\Alert{two different} relators, i.e.: $pa,pb\in R$ for $a,b \in \hat
+X^*$ with $a \neq b$.
+\end{definition}
+
+\pause
+\begin{definition}[Condition $C'(\lambda)$]
+We say $\left< X \mid R \right>$ is $C'(\lambda)$, if:
+\begin{itemize}
+\item for all $r=pa \in R$
+where $p$ is a piece, we have $|p| < \lambda \cdot |r|$.
+\end{itemize}
+($|r|$ is the length in letters).
+\end{definition}
+
+\pause
+\begin{definition}[Condition $T(q)$]
+We say $\left<X \mid R \right>$ is $T(q)$, if the following holds:
+\begin{itemize}
+\item Let $3 \le h < q$ and $(r_1, r_2,
+\ldots, r_h) \in R^h$ with \Struc{no successive elements} $r_i$, $r_{i+1}$ 
+or $r_h, r_1$ an \Struc{inverse pair}. Then \Alert{at least one} of the products
+$r_1r_2, r_2r_3, \ldots, r_hr_1$ is \Alert{reduced without cancellation}.
+\end{itemize}
+\end{definition}
+
+\end{frame}
+
+\begin{frame}
+\begin{theorem}[Lyndon, Schupp]
+Let $G = \left<X \mid R \right>$ with $R$ \Struc{closed under rotation
+and inversion} and all $r \in R$ are reduced. If $\left< X \mid R
+\right>$ fulfills \Alert{at least one of}:
+\begin{itemize}
+\item $C'(1/6)$ and $T(3)$, or
+\item $C'(1/4)$ and $T(4)$, or
+\item $C'(1/3)$ and $T(6)$,
+\end{itemize}
+then \Struc{Dehn's algorithm solves the word problem for $G$}.
+\end{theorem}
+
+\pause
+What is Dehn's algorithm?
+
+\pause
+What does this mean for the structure of $G$?
+
+\pause
+\bigskip
+\begin{definition}[Dehn RWS]
+Write all $r \in R$ as $r=ab$ with $|a|>|b|$ and define a rule $a \to
+b^{-1}$.
+\end{definition}
+
+\end{frame}
+
+\subsection{Dehn's algorithm}
+
+\begin{frame}
+\begin{algorithm}[Dehn's algorithm]
+Let $G = \left<X \mid R\right>$ and let $\cR$ be a length-reducing RWS 
+for $\hat X = X \cup X^{-1}$.
+
+\begin{enumerate}
+\item \textbf{Input:} a \Struc{word $w \in \hat X^*$}.
+\item \Struc{Freely reduce} $w$.
+\item If any rewrite rule matches, \Struc{apply} it and \Struc{go back} to 2.
+\item \textbf{Output:} the new $w$.
+\end{enumerate}
+\pause
+\textbf{Note} that 3.~is \Alert{not deterministic}.
+\end{algorithm}
+
+\pause
+Saying that \Struc{``Dehn's algorithm solves the word problem''}
+means:
+\begin{itemize}
+\item The output is the empty word $\varepsilon$ if and only if $w=_G
+1$,
+\item \Alert{not depending on which rewrite is applied in 3.}
+\end{itemize}
+
+\pause
+\textbf{Note:} 
+\begin{itemize}
+\item For a general RWS, this \Alert{does not make sense at all}.
+\pause
+\item If $w \neq_G 1$, then the output \Alert{can be different},
+depending on the choice in 3.
+\pause
+\item For a word of length $n$, this terminates in \Alert{at most $n$
+steps}.
+\end{itemize}
+\end{frame}
+
+\section{Hyperbolic groups}
+
+\subsection{Linear Dehn functions}
+
+\begin{frame}
+If $ab \in R$ with $|a|>|b|$ and $w=xay$, then Dehn rewrites
+this to $xb^{-1}y$.
+
+\pause
+Thus: $w=x(ab)x^{-1}\ xb^{-1}y$
+
+\pause
+So $w$ is written as a conjugate of a relator times a shorter word.
+
+\begin{lemma}
+If $G = \left< X \mid R \right>$ is small cancellation, then Dehn
+works and every word $w \in \hat X^*$ of length $n$ that
+is equal to $1$ in $G$ is the product of at most $n$ conjugates of a
+relator. Thus, the Dehn function $\delta(n) \le n \ \forall n$.
+\end{lemma}
+
+\pause
+\begin{definition}[Hyperbolic group]
+A group is called \Struc{hyperbolic}, if it has a finite presentation
+with a Dehn function that is \Struc{bounded by a linear function}.
+\end{definition}
+
+\pause
+\textbf{We have} for a group $G = \left< X \mid R \right>$:
+\begin{eqnarray*}
+ \mbox{small cancellation} &\Longrightarrow& \mbox{Dehn's algorithm works}
+   \Longrightarrow \mbox{hyperbolic} \\
+   \pause &\Longrightarrow&
+   \mbox{has presentation with a working Dehn} 
+\end{eqnarray*}
+
+\end{frame}
+
+\section{Finite state automata}
+
+\subsection{Definition by picture}
+
+\begin{frame}
+FSA, definition by picture, regular languages --> regular
+    expressions
+
+\end{frame}
+
+\subsection{Using a FSA for a RWS}
+
+\begin{frame}
+Explain FSA for a RWS
+\end{frame}
+
+\subsection{Cyclic words and conjugacy classes}
+
+\begin{frame}
+Cyclic words -> Conjugacy classes
+\end{frame}
+
+\section{Automatic groups}
+
+\subsection{Definition}
+
+\begin{frame}
+Word acceptors
+\end{frame}
+
+\begin{frame}
+Def automatic group: mupltiplier automata
+\end{frame}
+
+\begin{frame}
+The class of automatic groups
+\end{frame}
+
+\section{What we left out}
+
+\begin{frame}
+Parallelisation
+
+Quotient algorithms: Nilpotent, Soluble, $p$-Quotient
+
+Polycyclic groups
+
+Finding presentations from other representations
+
+Symmetric presentations
+
+infinite presentations
+
+laws
+
+new developments in algorithmic small cancellation theory
+\end{frame}
+
+\end{document}
+
