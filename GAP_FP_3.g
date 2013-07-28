@@ -8,4 +8,9 @@ Size(A);
 IdGroup(A);
 AbelianInvariants(G);
 AbelianInvariants(D);
-# Possibly some more here.
+Print("Example 2\n\n");
+F := FreeGroup("a","b","c");
+G := F/ParseRelators(F,"1=[a,b]=[a,c]=[b,c]=(ab)^12=(ac)^20");
+Size(G);
+AbelianInvariants(G);
+IsAbelian(G);
