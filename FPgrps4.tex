@@ -82,6 +82,7 @@
 \newcommand{\PSL}{\mathsf{PSL}}
 \newcommand{\cR}{\mathcal{R}}
 \newcommand\cyclic\circlearrowleft
+\newcommand{\tvs}{\textvisiblespace}
 
 \newcommand{\mybar}[1]{\overline{\raisebox{1.2ex}{}#1}}
 \newcommand{\mybaremp}{\mybar{\ \ }}
@@ -309,8 +310,8 @@ This is a \Alert{regular language}: $XY^*Z(Y+X) + YZ(YZ)^*(Z+XZ^*Y)$.
 \begin{itemize}
 \item Allow \Struc{empty} (or $\varepsilon$) transitions.
 \pause
-\item Allow \Struc{more than one} transition with the same label leaving a
-state.
+\item Allow \Struc{more than one} transition \Alert{with the same label} 
+leaving a state.
 \end{itemize}
 \pause
 \Alert{However:} \begin{minipage}[t]{3.5in}
@@ -369,15 +370,117 @@ $\Longrightarrow$ \Struc{Crucial step for} \Alert{Dehn's algorithm}.
 \subsection{Definition}
 
 \begin{frame}
-Word acceptors, padding
+Sometimes, we want to describe \Struc{relations} on $\hat X^*$ by a FSA:
+
+\pause
+\begin{definition}[2-variable FSA by padding]
+Define $p : \hat X^* \times \hat X^* \to 
+((\hat X \cup \{\$\}) \times (\hat X \cup \{\$\}))^*$ by \Struc{padding
+the shorter word} at the end with $\$$ symbols:
+
+\vspace*{-8mm}
+\begin{eqnarray*}
+p( ABC, DEFGH ) &=& (A,D)(B,E)(C,F)(\$,G)(\$,H) \\
+   p( ABC, D ) &=& (A,D)(B,\$)(C,\$)
+\end{eqnarray*}
+
+\vspace*{-3mm}
+\pause
+A FSA with \Struc{alphabet} $\hat X \cup \{\$\}$ accepts a pair
+$(v,w) \in \hat X^* \times \hat X^*$ iff there is a path from the start
+state to an accept state with label $p(v,w)$.
+\end{definition}
+
+\pause
+We prepare ourselves for the definition of \Struc{automatic groups}:
+
+\pause
+\begin{definition}[Word acceptor]
+Let $G = \left< X \mid R \right>$ and $\hat X := X \cup X^{-1}$. A FSA on
+$\hat X$ is called a \Struc{word acceptor} for $G$, if it
+accepts \Alert{at least one} word for each element of $G$.
+\pause
+
+It is called a \Struc{unique word acceptor}, if it accepts
+\Alert{exactly one} word for each element of $G$.
+\end{definition}
 \end{frame}
 
 \begin{frame}
-Def automatic group: mupltiplier automata
+\begin{definition}[Automatic group]
+Let $G$ be a group that is generated as a monoid by the set $\hat X$.
+Then $G$ is \Struc{automatic w.r.t.~$\hat X$}, if there exist FSA $W$
+and $M_x$ for $x \in \hat X \cup \{\varepsilon\}$, s.th.:
+\begin{itemize}
+\item $W$ has alphabet $\hat X$ and is a \Struc{word acceptor} for $G$, and
+\pause
+\item $M_x$ has alphabet $\hat X \cup \{\$\}$ and $(v,w) \in \hat X^*
+\times \hat X^*$ is \Alert{accepted} by $M_x$ iff \Alert{$vx =_G w$}.
+\end{itemize}
+\pause
+The automata $W$ and $M_x$ are called an \Struc{automatic structure} for
+$G$, the $M_x$ are the \Struc{multiplier automata}.
+\end{definition}
+
+\pause
+\begin{theorem}[Epstein et al.~1992]
+Being automatic is a \Struc{property of $G$} and not of $\hat X$.
+\end{theorem}
+
+\pause
+\begin{definition}[Shortlex automatic structure]
+If $W$ accepts
+\Alert{precisely the shortlex minimal words of $\hat X^*$} 
+for the elements of $G$, then
+$(W,\{M_x\})$ is a \Struc{shortlex automatic structure}.
+\end{definition}
+\end{frame}
+
+\subsection{Computing automatic structures}
+
+\begin{frame}
+\begin{definition}[Word differences]
+Let $v,w \in \hat X^*$ and let $v_i$ be the \Struc{prefix of $v$ of length
+$i$}. The \Struc{word differences} of $v$ and $w$ are
+$D(v,w) := \{ v_i^{-1} w_i \mid i \in \N \} \subseteq G$.
+
+\pause
+Note that all $d(v,w)$ are \Alert{finite sets}.
+\end{definition}
+\pause
+
+\begin{theorem}
+Let $(W,\{M_x\})$ be an \Struc{automatic structure}. The set
+
+\vspace*{-4mm}
+\[ D := \bigcup_{(v,w) \mbox{ \scriptsize accepted by some } M_x} D(v,w)\]
+
+\vspace*{-4mm}
+is \Alert{finite}.
+\end{theorem}
 \end{frame}
 
 \begin{frame}
-Idea of computing an automatic structure from a presentation.
+\begin{block}{Idea of shortlex automatic structure computation}
+Let $G = \left< X \mid R \right>$ and set $\hat X := X \cup X^{-1}$.
+\begin{enumerate}
+\item Run a \Struc{shortlex Knuth-Bendix} on a RWS coming from the monoid
+presentation.
+\pause
+\item \Struc{Stop} after some time, \Alert{even} if it has \Alert{not
+completed}.
+\pause
+\item \Struc{Compute} word differences as above, and \Struc{approximate} 
+FSA to recognise them.
+\pause
+\item \Struc{Compute} a \Alert{candidate} for the word acceptor $W$.
+\pause
+\item \Struc{Compute} \Alert{candidates} for the multiplier FSA $M_x$.
+\pause
+\item \Struc{Carry out} \Alert{correctness tests}, terminate if OK,
+otherwise go back.
+\end{enumerate}
+\end{block}
 
 \pause
 \vspace*{5mm}
