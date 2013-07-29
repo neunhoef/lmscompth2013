@@ -223,13 +223,14 @@ Let $G := \left< X \mid R \right>$ be a finitely presented group.
 
 Let $H$ be any group, $f : X \to H$ \Struc{any map} and set $f(x^{-1}) :=
 f(x)^{-1}$ for $x \in X$. If 
-\[ f(x_1) \cdot f(x_2) \cdot \cdots \cdot f(x_k) = 1 \in H \]
+\[ f(x_1) \cdot f(x_2) \cdot \cdots \cdot f(x_k) = 1 \in H
+\qquad\qquad (*)\]
 for all $r = x_1 x_2 \cdots x_k \in R$,
 then there is a \Struc{unique group homomorphism} $\tilde f : G \to H$
 with $\tilde f(\mybar x) = f(x)$ for all $x \in X$.
 
 \pause
-In other words: \Struc{any map $f : X \to H$} can be \Alert{extended
+In other words: \Struc{any map $f : X \to H$} with $(*)$ can be \Alert{extended
 to a group homomorphism $\tilde f: G \to H$ in a unique way}.
 \end{theorem}
 
@@ -523,8 +524,9 @@ then $H \cong \Z/(2\Z) \oplus \Z/(6\Z) \oplus \Z \oplus \Z$.
 
 \pause
 \smallskip
-The matrix $S$ \Struc{recombines the rows of $M$} and the matrix $T$ 
-\Struc{changes the generating set}. Both manipulations can be
+The matrix $S$ \Struc{recombines the rows of $M$} (changing the
+generators of $H$) and the matrix $T$ 
+\Struc{changes the generating set of $\Z^n$}. Both manipulations can be
 \Struc{traced explicitly}, yielding an \Alert{explicit, computable
 isomorphism}
 \[ G/G' \cong \Z^n/(\mbox{row space of }N). \]
