@@ -1,0 +1,80 @@
+\documentclass[12pt]{article}
+
+\pagestyle{empty}
+\parindent0pt
+%\usepackage{charter}
+\usepackage{times}
+\usepackage[a4paper,margin=1in]{geometry}
+\newcommand{\GAP}{\textsf{GAP}}
+\usepackage{hyperref}
+
+\begin{document}
+\begin{center}
+\large LMS Short Course on Computational Group Theory
+
+\Large Lab session 8
+
+\large Investigating Rubik's Cube using \GAP
+\end{center}
+
+You can download a \GAP-readable file with group generators for the Rubik's
+Cube group from
+\begin{center}
+\url{http://tinyurl.com/MNGAPsess/rubik.g}
+\end{center}
+
+\begin{enumerate}
+\item Let $g, h, k \in \mathrm{Sym}(12)$ be defined by
+\begin{eqnarray*}
+g &:=& (1,2,3,4,5,6,7,8,9,10,11), \\
+h &:=& (3,7,11,8)(4,10,5,6), \\
+k &:=& (1,12)(2,11)(3,6)(4,8)(5,9)(7,10) 
+\end{eqnarray*}
+and let $U = \langle g, h, k \rangle \leq \mathrm{Sym}(12)$.
+\begin{itemize}
+\item[a)] 
+What is $|U|$ and $[\mathrm{Sym}(12):U]$?
+\item[b)] 
+What are the orders of $g$, $h$ and $k$ and what other orders
+of elements occur in $U$?
+\item[c)]
+Are there orders of elements in $\mathrm{Sym}(12)$, which do not occur in
+$U$?
+\item[d)]
+What are the normal subgroups of $U$?
+\end{itemize}
+
+\item
+Use the group of the Rubik's Cube to answer the following questions:
+\begin{itemize}
+\item[a)]
+In how many different states can the Rubik's Cube be?
+\item[b)]
+Surely one cannot move a corner facet to an edge facet and vice versa. 
+Is it possible to move any corner facet to any other corner facet,
+and any edge facet to any other edge facet?
+\item[c)]
+Is it possible to transform the Rubik's Cube, such that exactly one corner
+is turned and everything else remains unchanged?
+\item[d)]
+How could one solve the Rubik's Cube with the help of its group?
+\end{itemize}
+\item 
+Now we want to investigate the structure of the Rubik's cube group $R$.
+These hints should help you with this.
+\begin{itemize}
+\item[a)]
+Which actions on the 8 corners does $R$ allow?
+\item[b)]
+Let $G$ be the subgroup of $R$ that fixes all $8$ corners. Which actions on
+the $3$ facets of a corner does $G$ allow?
+\item[c)]
+Let $H$ be the subgroup of $R$ that fixes all corner facets.
+This group only acts on the edges and the edge facets. Which actions does
+$H$ allow on the $12$ edges?
+\item[d)]
+Let $L$ be the subgroup of $H$ that fixes all 12 edges. This group only
+acts on the facets of the corners. Which actions does $L$ allow here?
+\end{itemize}
+\end{enumerate}
+\end{document}
