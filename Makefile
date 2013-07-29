@@ -22,3 +22,12 @@ GAPsession1.pdf:	GAPsession1.tex
 	
 GAPsession2.pdf:	GAPsession2.tex
 	pdflatex GAPsession2.tex
+
+GAPsession3.pdf:	GAPsession3.tex
+	pdflatex GAPsession3.tex
+	
+GAPsession4.pdf:	GAPsession4.tex
+	pdflatex GAPsession4.tex
+
+GAPsession8.pdf:	GAPsession8.tex
+	pdflatex GAPsession8.tex
