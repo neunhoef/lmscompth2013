@@ -1,0 +1,31 @@
+I found the worksheets for the lab sessions:
+  "with the right range of difficulties"
+
+Remark: I have only done one worksheet so far and have been working
+on my own problems more.
+
+For Thursday: Get an introduction on how to use GAP for *basic*
+computations.
+
+For Thursday: ask questions about problems occured in past research
+using GAP and discuss this in group (GAP discussion forum)
+And: Increasing the interactivity might be helpful to understand
+better the power and limits of GAP, and to see in which areas, for
+which purposes GAP can be used (and IS used)
+
+Algorithms for cohomology of polycyclic groups would be very welcome.
+
+I think that the labs are the best way they can be, given the range of
+past usage of GAP we have here.
+
+But this was my first time working with/seeing GAP.
+
+I would like to: "Ask a question about a particular problem I'm
+working on. (Requires presenting it on a white board - but only takes
+2 minutes to describe.)"
+
+The worksheets have been: "a good introduction"
+
+For Thursday: "data structures, how HAP talks to PARI"
+
+
