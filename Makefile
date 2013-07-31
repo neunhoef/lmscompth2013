@@ -1,5 +1,6 @@
 all:	FPgrps1.pdf FPgrps2.pdf FPgrps3.pdf FPgrps4.pdf \
-	GAPsession1.pdf GAPsession2.pdf
+	GAPsession1.pdf GAPsession2.pdf GAPsession3.pdf \
+	GAPsession4.pdf GAPsession8.pdf questions.pdf gapobj.pdf
 
 FPgrps1.pdf:   FPgrps1.tex
 	pdflatex FPgrps1.tex
@@ -31,3 +32,10 @@ GAPsession4.pdf:	GAPsession4.tex
 
 GAPsession8.pdf:	GAPsession8.tex
 	pdflatex GAPsession8.tex
+	pdflatex GAPsession8.tex
+
+questions.pdf:		questions.tex
+	pdflatex questions.tex
+
+gapobj.pdf:		gapobj.tex
+	pdflatex gapobj.tex
