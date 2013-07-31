@@ -1,0 +1,664 @@
+%\documentclass[handout]{beamer}
+\documentclass{beamer}
+
+\mode<presentation>
+{
+  %\usetheme{Warsaw}
+  %\usetheme{Antibes}
+  %\usetheme{Berkeley}
+  %\usetheme{Copenhagen}
+  %\usetheme{Hannover}
+  %\usetheme{JuanLesPins}
+  %\usetheme[left]{Marburg}
+  %\useinnertheme[shadow=true]{rounded}
+  \usetheme{CambridgeUS}
+  %\usetheme{PaloAlto}
+  %\usetheme{sidebar}
+  %\usecolortheme{crane}
+  %\usecolortheme{lily}
+  %\usecolortheme{beetle}
+  \usecolortheme{orchid}
+  % oder ...
+  %\setbeamercovered{transparent}
+  % oder auch nicht
+  %\setbeamercovered{transparent}
+  % or whatever (possibly just delete it)
+  \setbeamertemplate{navigation symbols}{}
+  %\setbeamertemplate{blocks}[rounded][shadow=true]
+  %\setbeamercolor{block body}{bg=bg=normal text.bg!70!black}
+  %\setbeamercolor{subsection in sidebar}{fg=white}
+}
+
+
+\usepackage[british]{babel}
+% oder was auch immer
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+\theoremstyle{definition}
+\newtheorem{questions}[theorem]{Questions}
+\usepackage[latin1]{inputenc}
+% oder was auch immer
+
+\usepackage{times}
+\usepackage[T1]{fontenc}
+% Oder was auch immer. Zu beachten ist, das Font und Encoding passen
+% müssen. Falls T1 nicht funktioniert, kann man versuchen, die Zeile
+% mit fontenc zu löschen.
+
+%\usepackage{graphicx}
+%\usepackage{rotating}
+
+\newcommand{\Struc}[1]{{\color{structure}#1}}
+\newcommand{\Alert}[1]{{\color{alert}#1}}
+
+\usepackage{calc}
+
+\newsavebox{\linksrausbox}
+\newlength{\linksrauslen}
+\newcommand{\linksraus}[1]{\sbox{\linksrausbox}{#1}%
+\settowidth{\linksrauslen}{\usebox{\linksrausbox}\ }%
+\usebox{\linksrausbox} \begin{minipage}[t]{\textwidth-\linksrauslen}}
+\newcommand{\linksrausend}{\end{minipage}\par}%\smallskip}
+
+\newcommand{\GAP}{{\sf GAP}}
+
+\title{Objects, types and method selection in \GAP}
+
+\author% (optional, nur bei vielen Autoren)
+{Max Neunhöffer}
+
+\institute % (optional, aber oft nötig)
+{ University of St Andrews}
+
+\date[1.8.2013] % (optional, sollte der abgekürzte Konferenzname sein)
+{1.8.2013}
+
+\begin{document}
+%\newcmykcolor{MyRedViolet}{0.07 0.90 0 0.34}
+\begin{frame}
+  \titlepage
+\end{frame}
+
+%\begin{frame}
+%  \frametitle{Overview}
+%  \tableofcontents
+%  % Die Option [pausesections] könnte nützlich sein.
+%\end{frame}
+
+\section{Objects, operations and method selection}
+
+\subsection{The idea}
+
+\begin{frame}
+\frametitle{The idea}
+\begin{center}
+  {\GAP} objects represent mathematical objects.
+
+  \pause
+  \medskip
+
+  There are \Struc{``operations''} and \Struc{``methods''}.
+
+  \pause
+  \medskip
+  Properties of objects (their \Struc{type})
+  
+  $\Downarrow$
+
+  Selection of the ``right'' method
+
+  \pause
+  \bigskip
+  \Struc{Objects can ``learn'' during their lifetime}
+
+  (i.e.~change their type)
+
+  \pause
+  \medskip
+  \Alert{The methods used change as a consequence!}
+
+  \pause
+\end{center}
+{\GAP} thus uses:
+\begin{itemize}
+\item dynamic typing at runtime
+\pause
+\item a static database of methods
+\pause
+\item ``just in time'' method selection
+\end{itemize}
+\end{frame}
+
+\subsection{Types}
+
+\begin{frame}
+\frametitle{Types}
+A \Struc{type in {\GAP}} is a pair:
+
+\begin{center}
+(a ``family'', a bit list of ``elementary filters'')
+\end{center}
+
+\pause
+The \Struc{families} form a \Alert{partition of the set of objects}.
+
+\hspace*{1cm} one part is for example the \texttt{PermutationsFamily}
+
+\pause
+\medskip
+An \Struc{elementary filter} is \Alert{both}
+\begin{itemize}
+\item a bit in the 2nd component of the type \Alert{and}
+\item the set of all objects, which have that bit set in their type.
+\end{itemize}
+
+\pause
+\medskip
+A \Struc{filter} is \Alert{either}
+\begin{itemize}
+\item an elementary filter \Alert{or}
+\item an and-composition of elementary filters.
+\end{itemize}
+
+\pause
+\medskip
+Every object o ``is'' either ``in some given filter'' or not.
+
+This can be tested with \texttt{FILTERNAME(o)}.
+
+\pause
+\medskip
+Examples: \texttt{IsSolvable}, \texttt{IsNilpotent}, \texttt{IsAbelian}
+\end{frame}
+
+\subsection{Operations and methods}
+
+\begin{frame}[fragile]
+\frametitle{Operations and methods}
+
+An \Struc{operation} is a collection of methods.
+
+One declares
+\begin{itemize}
+\item the name,
+\item the number of arguments, and
+\item a filter for each argument.
+\end{itemize}
+
+\medskip
+\pause
+\verb!DeclareOperation("Size",[IsGroup]);!
+
+\bigskip
+\pause
+One installs one or more \Struc{methods}:
+\begin{itemize}
+ \item These are functions with the right number of arguments.
+ \item One can give further restrictions:
+\end{itemize}
+
+\pause
+\begin{semiverbatim}
+InstallMethod(Size,
+\hspace*{5mm}[IsGroup and IsPermGroup],
+\hspace*{5mm}function(p) ... return ...; end);
+\end{semiverbatim}
+
+\pause
+We call these restrictions \Struc{``required filters''}.
+\end{frame}
+
+\begin{frame}
+\frametitle{The method selection}
+
+If somebody calls \texttt{Size(g)} for an object \texttt{g},
+
+\medskip
+\pause
+\begin{itemize}
+\item \GAP\ determines the \Struc{type} of \texttt{g},
+\pause
+\item considers \Struc{all} methods for \texttt{Size},
+\pause
+\item determines, which are \Struc{applicable} (are in all
+required filters),
+\pause
+\item and calls \Struc{the method} that
+\begin{itemize}
+\item \Alert{is applicable}, and
+\item \Alert{has the most required filters}
+
+      (if two or more have the same required filters it takes the one
+which was installed later).
+\end{itemize}
+\end{itemize}
+
+\medskip
+\pause
+This only works efficiently by a very tricky \Struc{method cache}!
+
+\bigskip
+\pause
+\linksraus{\Struc{More accurately:}} Each elementary filter has a ``rank''.
+
+The method with the highest sum of ranks of the required filters is
+chosen.
+\linksrausend
+\end{frame}
+
+\section{Conventions}
+
+\subsection{Families}
+
+\begin{frame}
+\frametitle{The idea behind families}
+
+The \Struc{families} \Alert{partition} the set of all objects.
+
+\smallskip
+In contrast, the \Struc{filters} form a \Alert{hierarchy} of sets.
+
+\medskip
+\pause
+e.g.: \texttt{PermutationsFamily}, \texttt{CyclotomicsFamily}.
+
+\medskip
+\pause
+For FP groups all elements of one such group form a
+family.
+
+\bigskip
+\pause
+A \Struc{collection} consists of objects from \Alert{the same family}.
+
+\medskip
+\pause
+One can form the ``CollectionsFamily'' of any family,
+
+\smallskip
+\pause
+and the ``ElementsFamily'' of each CollectionsFamily:
+
+\pause
+\begin{semiverbatim}
+\small
+gap> f:=CollectionsFamily(CyclotomicsFamily);;
+
+gap> CyclotomicsFamily=ElementsFamily(f);
+
+true
+
+gap> FamilyObj((1,2,3))=PermutationsFamily;
+
+true
+\end{semiverbatim}
+
+\end{frame}
+
+\subsection{Categories and representations}
+
+\begin{frame}
+\frametitle{Categories and representations}
+
+``Categories'' and ``representations'' are nothing but
+\Struc{elementary filters} with a bit of \Alert{philosophy} in the
+background!
+
+\medskip
+\pause
+Objects in the same \Struc{category} are 
+\Struc{(mathematically) similar objects}.
+
+Objects \Alert{never change category}!
+
+\medskip
+\pause
+Mathematically similar or equal objects can be
+\Struc{represented differently}, then they should lie in
+\Alert{different representations}.
+
+\bigskip
+\pause
+\texttt{IsPerm} is a category.
+
+\medskip
+\texttt{IsPerm2Rep} and \texttt{IsPerm4Rep} are representations.
+
+\pause
+\bigskip
+\Struc{Categories} usually occur in \Alert{declarations of
+operations},
+
+\Struc{representations} usually occur as \Alert{required
+filters} in method installations.
+\end{frame}
+
+
+\subsection{Inheritance}
+
+\begin{frame}[fragile]
+\frametitle{Inheritance in {\GAP}}
+
+Inheritance works with \Struc{subfilters}.
+
+\pause
+\medskip
+One declares subfilters and constructs objects that \Struc{lie in these
+additional subfilters}.
+
+\pause
+\medskip
+If one needs special methods, these are installed with the subfilters
+as \Struc{additional requirements}.
+
+\pause
+\bigskip
+\Struc{Hypothetical example:}
+
+{\small
+\begin{verbatim}
+DeclareCategory("IsGroup",IsObject);
+DeclareCategory("IsAbelianGroup",IsGroup);
+DeclareOperation("Size",[IsGroup]);
+InstallMethod(Size,"for arbitrary groups",
+              [IsGroup],
+              function(g) ... end);
+InstallMethod(Size,"for abelian groups",
+              [IsAbelianGroup],
+              function(a) ... end);
+\end{verbatim}
+}
+
+\end{frame}
+
+\section{An example}
+
+\subsection{The declarations}
+
+\begin{frame}[fragile]
+\frametitle{The declarations}
+
+{\small
+\begin{verbatim}
+BindGlobal("BlubbsFamily",
+           NewFamily("BlubbsFamily"));
+DeclareCategory("IsBlubb",
+                IsComponentObjectRep);
+DeclareRepresentation("IsBlubbDenseRep",
+                      IsBlubb,["wo","p"]);
+BindGlobal("BlubbDenseType",
+  NewType(BlubbsFamily,IsBlubbDenseRep));
+\end{verbatim}
+\pause
+\begin{verbatim}
+DeclareOperation("Blubb",[IsString,IsInt]);
+DeclareOperation("IsShort",[IsBlubb]);
+DeclareOperation("NrLetters",[IsBlubb]);
+\end{verbatim}
+\pause
+\begin{verbatim}
+InstallMethod(Blubb,"constructor",
+  [IsString,IsInt], function(s,i)
+    local r;
+    r := rec(wo:=s,p:=i);
+    return Objectify(BlubbDenseType,r);
+  end);
+\end{verbatim}
+}
+
+\end{frame}
+
+\subsection{The implementations}
+
+\begin{frame}[fragile]
+\frametitle{The implementations}
+
+{\small
+\begin{verbatim}
+InstallMethod(IsShort,"for dense Blubbs",
+  [IsBlubbDenseRep],
+  function(bl) 
+    return Length(bl!.wo) <= 5;
+  end);
+\end{verbatim}
+\pause
+\begin{verbatim}
+InstallMethod(NrLetters,"for dense Blubbs",
+  [IsBlubbDenseRep],
+  function(bl)
+    return Length(Set(bl!.wo));
+  end);
+\end{verbatim}
+\pause
+\begin{verbatim}
+InstallMethod(ViewObj,"for dense Blubbs",
+  [IsBlubbDenseRep],
+  function(bl)
+    Print("<a dense blubb wo=",bl!.wo,
+          " p=",bl!.p,">");
+  end);
+\end{verbatim}
+}
+\end{frame}
+
+\subsection{Usage examples}
+
+\begin{frame}[fragile]
+\frametitle{Usage}
+
+One can now use \texttt{Blubb}-objects as follows:
+
+{\small
+\begin{verbatim}
+gap> b := Blubb("abac",17);
+<a dense blubb wo=abac p=17>
+gap> NrLetters(b);
+3
+gap> IsShort(b);
+true
+gap> b!.wo;
+"abac"
+gap> b!.p;
+17
+\end{verbatim}
+}
+\pause
+One should install methods for
+\begin{itemize}
+\item \texttt{ViewObj} (for the user to see a \Struc{concise} description)
+\item \texttt{PrintObj} (if possible \Struc{{\GAP}-parsable})
+\item and possibly \texttt{Display} (\Struc{nicely formatted} description
+for the user).
+\end{itemize}
+\end{frame}
+
+\section{Further niceties}
+
+\subsection{Properties}
+
+\begin{frame}[fragile]
+\frametitle{Properties}
+
+A \Struc{Property} ``XYZ'' is realised by:
+\begin{itemize}
+\item an \Struc{elementary filter} \texttt{HasXYZ} and
+\item an \Struc{elementary filter} \texttt{XYZ}.
+\end{itemize}
+
+\pause
+\medskip
+Properties are declared like this:
+
+\hspace*{5mm}\verb|DeclareProperty("IsShort",IsBlubb);|
+
+\pause
+\medskip
+This \Struc{automatically defines}
+\begin{itemize}
+\item an elementary filter \texttt{HasIsShort},
+\pause
+\item an elementary filter \texttt{IsShort},
+\pause
+\item an operation \texttt{IsShort},
+\pause
+\item a method for \texttt{IsShort} for objects in the filter
+      \texttt{IsBlubb and HasIsShort}, which just checks the type, and
+\pause
+\item an operation with method \texttt{SetIsShort}.
+\end{itemize}
+
+\end{frame}
+
+\subsection{Attributes}
+
+\begin{frame}[fragile]
+\frametitle{Attributes}
+
+\hspace*{5mm}\verb!DeclareAttribute("NrLetters",IsBlubb);!
+
+\pause
+\medskip
+defines \Struc{automatically}
+\begin{itemize}
+\item an elementary filter \texttt{HasXYZ},
+\pause
+\item an operation \texttt{XYZ}.
+\end{itemize}
+
+\pause
+\Alert{If one inherits} from
+\Struc{\texttt{IsComponentObjectRep and IsAttributeStoringRep}},
+then one also gets:
+\begin{itemize}
+\item An operation \texttt{SetXYZ} for \verb![IsBlubb,IsObject]! that
+stores the 2nd argument in the \texttt{!.XYZ}-component and sets
+\texttt{HasXYZ}.
+\pause
+\item Every method for \texttt{XYZ} stores its result automatically in
+that component and sets \texttt{HasXYZ}.
+\pause
+\item A very highly ranked method for \texttt{XYZ} for objects in the filter
+\texttt{IsBlubb and HasXYZ} that simply returns \texttt{!.XYZ}.
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+%\frametitle{The example --- revisited}
+
+In our example, we can simply replace
+{\small
+\begin{verbatim}
+DeclareCategory("IsBlubb",
+                IsComponentObjectRep);
+DeclareOperation("IsShort",[IsBlubb]);
+DeclareOperation("NrLetters",[IsBlubb]);
+\end{verbatim}}
+by
+{\small
+\begin{verbatim}
+DeclareCategory("IsBlubb",
+                IsAttributeStoringRep);
+DeclareProperty("IsShort",IsBlubb);
+DeclareAttribute("NrLetters",IsBlubb);
+\end{verbatim}}
+and automatically get caching:
+\pause
+{\small
+\begin{verbatim}
+gap> b := Blubb("abac",17);
+<a dense blubb wo=abac p=17>
+gap> HasNrLetters(b);
+false
+gap> NrLetters(b);;
+gap> HasNrLetters(b);
+true
+\end{verbatim}
+}
+\end{frame}
+
+\subsection{Debugging}
+
+\begin{frame}[fragile]
+\frametitle{Debugging}
+If you want to see which methods are available:
+
+{\small
+\begin{verbatim}
+gap> ApplicableMethod(NrLetters,[b],3,"all");
+#I  Searching Method for NrLetters with 1 \
+                               arguments:
+#I  Total: 2 entries
+#I  Method 1: ``NrLetters: system getter'',\
+                        value: 2*SUM_FLAGS+4
+#I   - 1st argument needs \
+                 [ "IsAttributeStoringRep",\
+                   "Tester(NrLetters)" ]
+#I  Method 2: ``NrLetters: for dense \
+                          Blubbs'', value: 3
+#I  Skipped:
+[ function( bl ) ... end ]
+\end{verbatim}}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The complete example}
+{\small
+\begin{verbatim}
+BindGlobal("BlubbsFamily",
+           NewFamily("BlubbsFamily"));
+DeclareCategory("IsBlubb",
+                IsAttributeStoringRep);
+DeclareRepresentation("IsBlubbDenseRep",
+                      IsBlubb,["wo","p"]);
+BindGlobal("BlubbDenseType",
+  NewType(BlubbsFamily,IsBlubbDenseRep));
+\end{verbatim}
+
+\begin{verbatim}
+DeclareOperation("Blubb",[IsString,IsInt]);
+DeclareProperty("IsShort",IsBlubb);
+DeclareAttribute("NrLetters",IsBlubb);
+\end{verbatim}
+
+\begin{verbatim}
+InstallMethod(Blubb,"constructor",
+  [IsString,IsInt], function(s,i)
+    local r;
+    r := rec(wo:=s,p:=i);
+    return Objectify(BlubbDenseType,r);
+  end);
+\end{verbatim}
+}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{The complete example, continued}
+{\small
+\begin{verbatim}
+InstallMethod(IsShort,"for dense Blubbs",
+  [IsBlubbDenseRep],
+  function(bl) 
+    return Length(bl!.wo) <= 5;
+  end);
+
+InstallMethod(NrLetters,"for dense Blubbs",
+  [IsBlubbDenseRep],
+  function(bl)
+    return Length(Set(bl!.wo));
+  end);
+
+InstallMethod(ViewObj,"for dense Blubbs",
+  [IsBlubbDenseRep],
+  function(bl)
+    Print("<a dense blubb wo=",bl!.wo,
+          " p=",bl!.p,">");
+  end);
+\end{verbatim}
+}
+\end{frame}
+
+\end{document}
+
