@@ -1,0 +1,89 @@
+\documentclass[12pt]{article}
+
+\pagestyle{empty}
+\parindent0pt
+%\usepackage{charter}
+\usepackage{times}
+\usepackage{amsfonts}
+\usepackage[a4paper,margin=1in]{geometry}
+\newcommand{\GAP}{\textsf{GAP}}
+\newcommand{\GL}{\mathrm{GL}}
+\newcommand{\Sp}{\mathrm{Sp}}
+\newcommand{\Sym}{\mathrm{Sym}}
+\newcommand{\ol}{\overline}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\ms}{\mapsto}
+\newcommand{\ti}{\tilde}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\F}{\mathbb{F}}
+\usepackage{hyperref}
+
+\begin{document}
+\begin{center}
+\large LMS Short Course on Computational Group Theory
+
+\Large Lab session 10
+
+\large Different group representations \GAP
+\end{center}
+
+\begin{enumerate} 
+\item In this exercise you will write two functions \texttt{MatRepr(G,p)}
+and \texttt{PermRepr(G)}:
+\begin{itemize}
+\item[a)]
+Let $G \le \mathrm{Sym}(n)$ and $B = \{ b_1, \ldots, b_n\}$ be the
+standard basis of $V = \F_p^n$. Then $G$ acts on $B$ by $b_i^g =
+b_{i^g}$ and one gets $\varphi : G \le \GL(n,p)$. The function
+\texttt{MatRepr} shall compute $\varphi(G)$ for the inputs $G$ and $p$.
+\item[b)]
+Let $G \le \GL(n,p)$ and $V = \F_p^n$. Then $G$ acts on the elements
+of $V$ by right multiplicaiton and one gets
+$\psi : G \le \mathrm{Sym}(p^n)$. The function \texttt{PermRepr} shall 
+compute $\psi(G)$ the input $G$.
+\end{itemize}
+
+\item 
+Let $G = \Sp(4,3) \le \GL(4,3)$.
+\begin{itemize}
+\item[a)]
+Fetch this group from the library of \GAP.
+\item[b)]
+Determine the permutation representation $\ol{G}$ of $G$ on $\F_3^4$.
+\item[c)]
+Determine the matrix representation $\ti{G}$ of $\overline{G}$ over
+$\F_5$.
+\item[d)]
+Investigate $V = \F_5^{81}$ as module for $\ti{G}$.
+\end{itemize}
+
+\item
+Define the groups $G$ and $H$ by
+\begin{eqnarray*}
+G &=& \left<
+\left[ \begin{array}{rrr} 1&0&0 \\ 0&0&1 \\ -1&-1&-1 \end{array} \right],
+\left[ \begin{array}{rrr} 0&0&-1 \\ 1&1&1 \\ 0&-1&0 \end{array} \right]
+\right>, \\
+H &=& \left<
+\left[ \begin{array}{rr} -1&0 \\ 0&1 \end{array} \right],
+\left[ \begin{array}{rr} -1&1 \\ 0&1\end{array} \right]
+\right>.
+\end{eqnarray*}
+\begin{itemize}
+\item[a)]
+Which orders do the generators of $G$ and $H$ have?
+\item[b)]
+Are $G$ resp.~$H$ finite or infinite?
+\item[c)]
+If finite: identify the group.
+\item[d)]
+If infinite: how could you investigate the structure of the group
+further?
+\end{itemize}
+
+\item Use \GAP\ to find the 12 smallest non-abelian finite simple
+groups.
+\end{enumerate}
+
+\end{document}
