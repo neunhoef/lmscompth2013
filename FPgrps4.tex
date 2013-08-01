@@ -350,7 +350,8 @@ labelled with ``Z'' to XYZ \Alert{if this is still a prefix} of a LHS.
 
 \pause
 If XYZ is \Struc{not a prefix}, then there is a transition 
-labelled with ``Z'' to the \Alert{longest suffix of XYZ that is a prefix}.
+labelled with ``Z'' to the \Alert{longest suffix of XYZ that is a prefix}
+of a LHS.
 
 \pause
 \smallskip
@@ -415,7 +416,8 @@ and $M_x$ for $x \in \hat X \cup \{\varepsilon\}$, s.th.:
 \item $W$ has alphabet $\hat X$ and is a \Struc{word acceptor} for $G$, and
 \pause
 \item $M_x$ has alphabet $\hat X \cup \{\$\}$ and $(v,w) \in \hat X^*
-\times \hat X^*$ is \Alert{accepted} by $M_x$ iff \Alert{$vx =_G w$}.
+\times \hat X^*$ (where $v$ and $w$ are accepted by $W$) 
+is \Alert{accepted} by $M_x$ iff \Alert{$vx =_G w$}.
 \end{itemize}
 \pause
 The automata $W$ and $M_x$ are called an \Struc{automatic structure} for
@@ -445,7 +447,7 @@ $i$}. The \Struc{word differences} of $v$ and $w$ are
 $D(v,w) := \{ v_i^{-1} w_i \mid i \in \N \} \subseteq G$.
 
 \pause
-Note that all $d(v,w)$ are \Alert{finite sets}.
+Note that all $D(v,w)$ are \Alert{finite sets}.
 \end{definition}
 \pause
 
@@ -537,7 +539,7 @@ In this lecture series we have \Alert{not mentioned} a lot of topics:
 \item \Struc{Finding matrix representations} (see W.~Plesken et al.)
 \pause
 \item \Struc{Finding presentations} if group is given in 
-\Alert{another representations}
+\Alert{another representation}
 \pause
 \item \Struc{Symmetric presentations} (see R.~Curtis et al.)
 \pause
@@ -548,7 +550,7 @@ In this lecture series we have \Alert{not mentioned} a lot of topics:
 \item \Struc{New developments} in \Alert{algorithmic small cancellation
 theory} 
 
-(see Colva's talk yesterday)
+(see Richard's talk yesterday)
 \end{itemize}
 
 \bigskip
